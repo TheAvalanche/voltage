@@ -1,0 +1,19 @@
+version: '2'
+services:
+    voltage-app:
+        image: voltage
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://voltage-postgresql:5432/Voltage
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=voltage-elasticsearch:9300
+        ports:
+            - 8080:8080
+    voltage-postgresql:
+        extends:
+            file: postgresql.yml
+            service: voltage-postgresql
+    voltage-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: voltage-elasticsearch
