@@ -1,0 +1,41 @@
+
+<div *ngIf="blogCategory">
+    <h2><span jhiTranslate="voltageApp.blogCategory.detail.title">Blog Category</span> {{blogCategory.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="voltageApp.blogCategory.created">Created</span></dt>
+        <dd>
+            <span>{{blogCategory.created | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="voltageApp.blogCategory.updated">Updated</span></dt>
+        <dd>
+            <span>{{blogCategory.updated | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="voltageApp.blogCategory.version">Version</span></dt>
+        <dd>
+            <span>{{blogCategory.version}}</span>
+        </dd>
+        <dt><span jhiTranslate="voltageApp.blogCategory.title">Title</span></dt>
+        <dd>
+            <span>{{blogCategory.title}}</span>
+        </dd>
+        <dt><span jhiTranslate="voltageApp.blogCategory.language">Language</span></dt>
+        <dd>
+            <span jhiTranslate="{{'voltageApp.Language.' + blogCategory.language}}">{{blogCategory.language}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'blog-category/'+ blogCategory.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

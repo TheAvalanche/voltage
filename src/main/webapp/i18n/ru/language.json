@@ -1,0 +1,10 @@
+{
+    "voltageApp": {
+        "Language" : {
+            "null": "",
+            "RUSSIAN": "RUSSIAN",
+            "ENGLISH": "ENGLISH",
+            "LATVIAN": "LATVIAN"
+        }
+    }
+}
