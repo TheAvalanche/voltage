@@ -2,9 +2,9 @@
     "voltageApp": {
         "Language" : {
             "null": "",
-            "RUSSIAN": "RUSSIAN",
-            "ENGLISH": "ENGLISH",
-            "LATVIAN": "LATVIAN"
+            "RUSSIAN": "Русский",
+            "ENGLISH": "English",
+            "LATVIAN": "Latviešu"
         }
     }
 }
