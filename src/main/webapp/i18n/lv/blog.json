@@ -3,26 +3,26 @@
         "blog" : {
             "home": {
                 "title": "Blogs",
-                "createLabel": "Create a new Blog",
-                "createOrEditLabel": "Create or edit a Blog",
-                "search": "Search for Blog"
+                "createLabel": "Izveidot jaunu rakstu",
+                "createOrEditLabel": "Izveidot/rediģēt rakstu",
+                "search": "Meklēt rakstu"
             },
-            "created": "A new Blog is created with identifier {{ param }}",
-            "updated": "A Blog is updated with identifier {{ param }}",
-            "deleted": "A Blog is deleted with identifier {{ param }}",
+            "created": "Jaunais raksts ir izveidots ar id {{ param }}",
+            "updated": "Raksts ir atjaunots ar id {{ param }}",
+            "deleted": "Raksts ir nodzēsts ar id {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Blog {{ id }}?"
+                "question": "Vai jūs tiešām gribēt nodzēst rakstu {{ id }}?"
             },
             "detail": {
-                "title": "Blog"
+                "title": "Raksts"
             },
             "created": "Created",
             "updated": "Updated",
             "version": "Version",
-            "title": "Title",
-            "body": "Body",
-            "language": "Language",
-            "blogCategory": "Blog Category"
+            "title": "Virsraksts",
+            "body": "Teksts",
+            "language": "Valoda",
+            "blogCategory": "Kategorija"
         }
     }
 }

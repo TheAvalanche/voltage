@@ -2,27 +2,27 @@
     "voltageApp": {
         "blog" : {
             "home": {
-                "title": "Blogs",
-                "createLabel": "Создать новый Blog",
-                "createOrEditLabel": "Создать или отредактировать Blog",
-                "search": "Найти Blog"
+                "title": "Блог",
+                "createLabel": "Создать новую запись",
+                "createOrEditLabel": "Создать или отредактировать запись",
+                "search": "Найти запись"
             },
-            "created": "Новый Blog создан с идентификатором {{ param }}",
-            "updated": "Blog обновлен с идентификатором {{ param }}",
-            "deleted": "Blog удален с идентификатором {{ param }}",
+            "created": "Новая запись созданфа с идентификатором {{ param }}",
+            "updated": "Запись обновлена с идентификатором {{ param }}",
+            "deleted": "Запись удалена с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Blog {{ id }}?"
+                "question": "Вы уверены что хотите удалить запись {{ id }}?"
             },
             "detail": {
-                "title": "Blog"
+                "title": "Запись"
             },
             "created": "Created",
             "updated": "Updated",
             "version": "Version",
-            "title": "Title",
-            "body": "Body",
-            "language": "Language",
-            "blogCategory": "Blog Category"
+            "title": "Заглавие",
+            "body": "Содержание",
+            "language": "Язык",
+            "blogCategory": "Категория"
         }
     }
 }

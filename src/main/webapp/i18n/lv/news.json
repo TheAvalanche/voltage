@@ -2,27 +2,27 @@
     "voltageApp": {
         "news" : {
             "home": {
-                "title": "News",
-                "createLabel": "Create a new News",
-                "createOrEditLabel": "Create or edit a News",
-                "search": "Search for News"
+                "title": "Ziņas",
+                "createLabel": "Izveidot jaunu rakstu",
+                "createOrEditLabel": "Izveidot/rediģēt rakstu",
+                "search": "Meklēt rakstu"
             },
-            "created": "A new News is created with identifier {{ param }}",
-            "updated": "A News is updated with identifier {{ param }}",
-            "deleted": "A News is deleted with identifier {{ param }}",
+            "created": "Jaunais raksts ir izveidots ar id {{ param }}",
+            "updated": "Raksts ir atjaunots ar id {{ param }}",
+            "deleted": "Raksts ir nodzēsts ar id {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete News {{ id }}?"
+                "question": "Vai jūs tiešām gribēt nodzēst rakstu {{ id }}?"
             },
             "detail": {
-                "title": "News"
+                "title": "Raksts"
             },
             "created": "Created",
             "updated": "Updated",
             "version": "Version",
-            "title": "Title",
-            "body": "Body",
-            "image": "Image",
-            "language": "Language"
+            "title": "Virsraksts",
+            "body": "Teksts",
+            "image": "Attēls",
+            "language": "Valoda"
         }
     }
 }

@@ -3,38 +3,38 @@
         "title": "Voltage",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "menu": {
-            "home": "Home",
+            "home": "Uz galveno",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
-                "main": "Entities",
-                "news": "News",
-                "blog": "Blog",
-                "blogCategory": "Blog Category",
+                "main": "Ieraksti",
+                "news": "Ziņas",
+                "blog": "Blogs",
+                "blogCategory": "Kategorijas",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
-                "main": "Account",
-                "settings": "Settings",
-                "password": "Password",
-                "sessions": "Sessions",
-                "login": "Sign in",
-                "logout": "Sign out",
-                "register": "Register"
+                "main": "Profils",
+                "settings": "Iestatijumi",
+                "password": "Parole",
+                "sessions": "Sessijas",
+                "login": "Ielogoties",
+                "logout": "Izlogoties",
+                "register": "Reģistrēties"
             },
             "admin": {
-                "main": "Administration",
-                "userManagement": "User management",
-                "tracker": "User tracker",
-                "metrics": "Metrics",
-                "health": "Health",
-                "configuration": "Configuration",
-                "logs": "Logs",
+                "main": "Administrācija",
+                "userManagement": "Lietotāji",
+                "tracker": "Trekings",
+                "metrics": "Metrikas",
+                "health": "Stāvoklis",
+                "configuration": "Konfigurācijas",
+                "logs": "Logi",
                 "audits": "Audits",
                 "apidocs": "API",
-                "database": "Database",
+                "database": "Datubaze",
                 "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
             },
-            "language": "Language"
+            "language": "Valoda"
         },
         "form": {
             "username": "Username",
@@ -92,13 +92,13 @@
         "action": {
             "addblob": "Add blob",
             "addimage": "Add image",
-            "back": "Back",
+            "back": "Atpakaļ",
             "cancel": "Cancel",
-            "delete": "Delete",
-            "edit": "Edit",
-            "open": "Open",
-            "save": "Save",
-            "view": "View"
+            "delete": "Nodzest",
+            "edit": "Rediģēt",
+            "open": "Atvert",
+            "save": "Saglabāt",
+            "view": "Skatīt"
         },
         "detail": {
             "field": "Field",

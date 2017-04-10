@@ -2,25 +2,25 @@
     "voltageApp": {
         "blogCategory" : {
             "home": {
-                "title": "Blog Categories",
-                "createLabel": "Create a new Blog Category",
-                "createOrEditLabel": "Create or edit a Blog Category",
-                "search": "Search for Blog Category"
+                "title": "Kategorijas",
+                "createLabel": "Izveidot jaunu kategoriju",
+                "createOrEditLabel": "Izveidot/rediģēt kategoriju",
+                "search": "Meklēt kategoriju"
             },
-            "created": "A new Blog Category is created with identifier {{ param }}",
-            "updated": "A Blog Category is updated with identifier {{ param }}",
-            "deleted": "A Blog Category is deleted with identifier {{ param }}",
+            "created": "Jaunā kategorija ir izveidots ar id {{ param }}",
+            "updated": "Kategorija ir atjaunota ar id {{ param }}",
+            "deleted": "Kategorija ir nodzēsta ar id {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Blog Category {{ id }}?"
+                "question": "Vai jūs tiešām gribēt nodzēst kategoriju {{ id }}?"
             },
             "detail": {
-                "title": "Blog Category"
+                "title": "Kategorija"
             },
             "created": "Created",
             "updated": "Updated",
             "version": "Version",
-            "title": "Title",
-            "language": "Language"
+            "title": "Nosaukums",
+            "language": "Valoda"
         }
     }
 }

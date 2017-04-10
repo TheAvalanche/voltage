@@ -2,25 +2,25 @@
     "voltageApp": {
         "blogCategory" : {
             "home": {
-                "title": "Blog Categories",
-                "createLabel": "Создать новый Blog Category",
-                "createOrEditLabel": "Создать или отредактировать Blog Category",
-                "search": "Найти Blog Category"
+                "title": "Категория",
+                "createLabel": "Создать новую категорию",
+                "createOrEditLabel": "Создать или отредактировать категорию",
+                "search": "Найти категорию"
             },
-            "created": "Новый Blog Category создан с идентификатором {{ param }}",
-            "updated": "Blog Category обновлен с идентификатором {{ param }}",
-            "deleted": "Blog Category удален с идентификатором {{ param }}",
+            "created": "Новая категория создана с идентификатором {{ param }}",
+            "updated": "Категория обновлена с идентификатором {{ param }}",
+            "deleted": "Категория удалена с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Blog Category {{ id }}?"
+                "question": "Вы уверены что хотите удалить категорию {{ title }}?"
             },
             "detail": {
-                "title": "Blog Category"
+                "title": "Категория"
             },
             "created": "Created",
             "updated": "Updated",
             "version": "Version",
-            "title": "Title",
-            "language": "Language"
+            "title": "Название",
+            "language": "Язык"
         }
     }
 }

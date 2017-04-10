@@ -6,10 +6,10 @@
             "home": "Главная",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
-                "main": "Сущности",
-                "news": "News",
-                "blog": "Blog",
-                "blogCategory": "Blog Category",
+                "main": "Записи",
+                "news": "Новости",
+                "blog": "Блог",
+                "blogCategory": "Категории",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -85,7 +85,7 @@
             "id" : "ID"
         },
         "ribbon": {
-            "dev":"Development"
+            "dev":"Разработка"
         }
     },
     "entity": {

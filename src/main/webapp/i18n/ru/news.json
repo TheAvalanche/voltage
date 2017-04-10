@@ -2,27 +2,27 @@
     "voltageApp": {
         "news" : {
             "home": {
-                "title": "News",
-                "createLabel": "Создать новый News",
-                "createOrEditLabel": "Создать или отредактировать News",
-                "search": "Найти News"
+                "title": "Новости",
+                "createLabel": "Создать новую запись",
+                "createOrEditLabel": "Создать или отредактировать запись",
+                "search": "Найти запись"
             },
-            "created": "Новый News создан с идентификатором {{ param }}",
-            "updated": "News обновлен с идентификатором {{ param }}",
-            "deleted": "News удален с идентификатором {{ param }}",
+            "created": "Новая запись создан с идентификатором {{ param }}",
+            "updated": "Запись обновлена с идентификатором {{ param }}",
+            "deleted": "Запись удалена с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить News {{ id }}?"
+                "question": "Вы уверены что хотите удалить запись {{ id }}?"
             },
             "detail": {
-                "title": "News"
+                "title": "Запись"
             },
             "created": "Created",
             "updated": "Updated",
             "version": "Version",
-            "title": "Title",
-            "body": "Body",
-            "image": "Image",
-            "language": "Language"
+            "title": "Заголовок",
+            "body": "Содержание",
+            "image": "Картинка",
+            "language": "Язык"
         }
     }
 }

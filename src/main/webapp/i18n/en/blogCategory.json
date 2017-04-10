@@ -2,7 +2,7 @@
     "voltageApp": {
         "blogCategory" : {
             "home": {
-                "title": "Blog Categories",
+                "title": "Categories",
                 "createLabel": "Create a new Blog Category",
                 "createOrEditLabel": "Create or edit a Blog Category",
                 "search": "Search for Blog Category"
@@ -14,7 +14,7 @@
                 "question": "Are you sure you want to delete Blog Category {{ id }}?"
             },
             "detail": {
-                "title": "Blog Category"
+                "title": "Category"
             },
             "created": "Created",
             "updated": "Updated",

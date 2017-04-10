@@ -9,6 +9,7 @@ import { VoltageHomeModule } from './home/home.module';
 import { VoltageAdminModule } from './admin/admin.module';
 import { VoltageAccountModule } from './account/account.module';
 import { VoltageEntityModule } from './entities/entity.module';
+import { VoltagePublicBlogModule } from './public-blog/public-blog.module';
 
 import { LayoutRoutingModule } from './layouts';
 import { customHttpProvider } from './blocks/interceptor/http.provider';
@@ -34,7 +35,8 @@ import {
         VoltageHomeModule,
         VoltageAdminModule,
         VoltageAccountModule,
-        VoltageEntityModule
+        VoltageEntityModule,
+        VoltagePublicBlogModule
     ],
     declarations: [
         JhiMainComponent,
