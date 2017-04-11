@@ -1,0 +1,68 @@
+.footer {
+    border-top: 1px solid rgba(0, 0, 0, .125);
+    background-color: #68829E;
+    color: #ccc;
+
+    .border-bottom {
+        border-bottom: 1px solid rgba(80, 81, 96, 0.25);
+    }
+
+    .border-top {
+        border-top: 1px solid rgba(80, 81, 96, 0.25);
+    }
+
+    .footer-col {
+        padding: 20px 0;
+        label {
+            font-weight: bold;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            li {
+                color: #ccc;
+                a {
+                    color: #ccc;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .social ul {
+        li {
+            display: inline;
+        }
+    }
+
+}
+
+.footer-title {
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: 300;
+    font-size: 20px;
+    color: #fff;
+}
+
+/* ==========================================================================
+Logo styles
+========================================================================== */
+.footer-brand {
+    &.logo {
+        padding: 20px 0;
+        .logo-img {
+            height: 45px;
+            width: 70px;
+            display: inline-block;
+            vertical-align: middle;
+            background: url("../../../content/images/logo-jhipster.png") no-repeat center center;
+            background-size: contain;
+        }
+    }
+}
+
+.copyright {
+    padding: 10px 0;
+    font-size: 12px;
+}
