@@ -5,7 +5,7 @@ import { EventManager, JhiLanguageService } from 'ng-jhipster';
 import { Account, LoginModalService, Principal } from '../shared';
 
 @Component({
-    selector: 'jhi-home',
+    selector: 'jhi-public-blog',
     templateUrl: './public-blog.component.html',
     styleUrls: [
         'public-blog.scss'
@@ -19,8 +19,6 @@ export class PublicBlogComponent implements OnInit {
     constructor(
         private jhiLanguageService: JhiLanguageService,
         private principal: Principal,
-        private loginModalService: LoginModalService,
-        private eventManager: EventManager
     ) {
         this.jhiLanguageService.setLocations(['blog']);
     }

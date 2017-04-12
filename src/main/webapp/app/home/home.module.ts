@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { VoltageSharedModule } from '../shared';
 
 import { HOME_ROUTE, HomeComponent } from './';
+import {PublicNewsComponent} from './public-news/public-news.component';
 
 
 @NgModule({
@@ -12,7 +13,7 @@ import { HOME_ROUTE, HomeComponent } from './';
         RouterModule.forRoot([ HOME_ROUTE ], { useHash: true })
     ],
     declarations: [
-        HomeComponent,
+        HomeComponent, PublicNewsComponent
     ],
     entryComponents: [
     ],

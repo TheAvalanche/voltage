@@ -1,0 +1,15 @@
+<div class="section-header">
+    <h2>News</h2>
+</div>
+<div class="section-content">
+<article *ngFor="let news of news ;trackBy: trackId">
+    <figure>
+        <a *ngIf="news.image" [routerLink]="['../news', news.id ]">
+            <img [src]="'data:' + news.imageContentType + ';base64,' + news.image" style="max-height: 150px;" alt="news image"/>
+        </a>
+    </figure>
+    <header>
+        <a [routerLink]="['../news', news.id ]">{{news.title}}</a>
+    </header>
+</article>
+</div>
