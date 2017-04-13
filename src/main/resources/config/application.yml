@@ -101,7 +101,7 @@ jhipster:
     mail:
         from: Voltage@localhost
     swagger:
-        default-include-pattern: /api/.*
+        default-include-pattern: /.*
         title: Voltage API
         description: Voltage API documentation
         version: 0.0.1

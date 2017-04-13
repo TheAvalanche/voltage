@@ -4,8 +4,7 @@ import {Response} from '@angular/http';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { ParseLinks, JhiLanguageService, AlertService } from 'ng-jhipster';
 import {News} from '../../entities/news/news.model';
-import { NewsService } from '../../entities/news/news.service';
-import {ActivatedRoute} from '@angular/router';
+import {PublicNewsService} from './public-news.service';
 
 @Component({
     selector: 'jhi-public-news',
@@ -30,7 +29,7 @@ export class PublicNewsComponent implements OnInit {
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
-        private newsService: NewsService,
+        private newsService: PublicNewsService,
         private parseLinks: ParseLinks,
         private alertService: AlertService,
     ) {

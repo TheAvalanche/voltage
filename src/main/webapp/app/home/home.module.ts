@@ -5,6 +5,7 @@ import { VoltageSharedModule } from '../shared';
 
 import { HOME_ROUTE, HomeComponent } from './';
 import {PublicNewsComponent} from './public-news/public-news.component';
+import {PublicNewsService} from './public-news/public-news.service';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {PublicNewsComponent} from './public-news/public-news.component';
     entryComponents: [
     ],
     providers: [
+        PublicNewsService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
