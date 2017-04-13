@@ -24,6 +24,7 @@ export class PublicNewsComponent implements OnInit {
     queryCount: any;
     itemsPerPage: any;
     page: any;
+    previousPage: any;
     predicate: any;
     reverse: any;
 
@@ -34,6 +35,8 @@ export class PublicNewsComponent implements OnInit {
         private alertService: AlertService,
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
+        this.page = 1;
+        this.previousPage = 1;
         this.jhiLanguageService.setLocations(['news', 'language']);
     }
 
@@ -41,22 +44,21 @@ export class PublicNewsComponent implements OnInit {
         this.loadAll();
     }
 
+    loadPage (page: number) {
+        if (page !== this.previousPage) {
+            this.previousPage = page;
+            this.loadAll();
+        }
+    }
+
     loadAll() {
         this.newsService.query({
-            page: 0,
+            page: this.page - 1,
             size: this.itemsPerPage,
             sort: ['id,desc']}).subscribe(
             (res: Response) => this.onSuccess(res.json(), res.headers),
             (res: Response) => this.onError(res.json())
         );
-    }
-
-    sort () {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
-        if (this.predicate !== 'id') {
-            result.push('id');
-        }
-        return result;
     }
 
     private onSuccess (data, headers) {
