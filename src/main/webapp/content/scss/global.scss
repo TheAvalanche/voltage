@@ -34,8 +34,7 @@ Generic styles
 /* other generic styles */
 
 .jh-card {
-    padding: 1.5%;
-    margin-top: 20px;
+    padding: 0 1.5% 1.5% 1.5%;
     border: none;
 }
 
@@ -189,6 +188,8 @@ entity detail page css
 /* ==========================================================================
 ui bootstrap tweaks
 ========================================================================== */
+
+
 .nav, .pagination, .carousel, .panel-title a {
     cursor: pointer;
 }
@@ -201,6 +202,12 @@ ui bootstrap tweaks
 .datetime-picker-dropdown > li.date-picker-menu div > table:focus,
 .uib-datepicker-popup  > li > div.uib-datepicker > table:focus {
     outline: none;
+}
+
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+    display: block!important;
 }
 
 /* ==========================================================================
