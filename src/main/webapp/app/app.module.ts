@@ -10,6 +10,7 @@ import { VoltageAdminModule } from './admin/admin.module';
 import { VoltageAccountModule } from './account/account.module';
 import { VoltageEntityModule } from './entities/entity.module';
 import { VoltagePublicBlogModule } from './public-blog/public-blog.module';
+import { VoltagePublicNewsDetailModule } from './home/public-news/public-news-detail.module';
 
 import { LayoutRoutingModule } from './layouts';
 import { customHttpProvider } from './blocks/interceptor/http.provider';
@@ -26,6 +27,7 @@ import {
 } from './layouts';
 
 
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -36,7 +38,8 @@ import {
         VoltageAdminModule,
         VoltageAccountModule,
         VoltageEntityModule,
-        VoltagePublicBlogModule
+        VoltagePublicBlogModule,
+        VoltagePublicNewsDetailModule
     ],
     declarations: [
         JhiMainComponent,
