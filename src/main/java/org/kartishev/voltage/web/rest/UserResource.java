@@ -1,20 +1,18 @@
 package org.kartishev.voltage.web.rest;
 
-import org.kartishev.voltage.config.Constants;
 import com.codahale.metrics.annotation.Timed;
+import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiParam;
+import org.kartishev.voltage.config.Constants;
 import org.kartishev.voltage.domain.User;
 import org.kartishev.voltage.repository.UserRepository;
-import org.kartishev.voltage.repository.search.UserSearchRepository;
 import org.kartishev.voltage.security.AuthoritiesConstants;
 import org.kartishev.voltage.service.MailService;
 import org.kartishev.voltage.service.UserService;
 import org.kartishev.voltage.service.dto.UserDTO;
-import org.kartishev.voltage.web.rest.vm.ManagedUserVM;
 import org.kartishev.voltage.web.rest.util.HeaderUtil;
 import org.kartishev.voltage.web.rest.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import io.swagger.annotations.ApiParam;
-
+import org.kartishev.voltage.web.rest.vm.ManagedUserVM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -27,11 +25,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import java.util.List;
+import java.util.Optional;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing users.
@@ -71,15 +67,13 @@ public class UserResource {
 
     private final UserService userService;
 
-    private final UserSearchRepository userSearchRepository;
 
     public UserResource(UserRepository userRepository, MailService mailService,
-            UserService userService, UserSearchRepository userSearchRepository) {
+            UserService userService) {
 
         this.userRepository = userRepository;
         this.mailService = mailService;
         this.userService = userService;
-        this.userSearchRepository = userSearchRepository;
     }
 
     /**
@@ -193,18 +187,4 @@ public class UserResource {
         return ResponseEntity.ok().headers(HeaderUtil.createAlert( "userManagement.deleted", login)).build();
     }
 
-    /**
-     * SEARCH  /_search/users/:query : search for the User corresponding
-     * to the query.
-     *
-     * @param query the query to search
-     * @return the result of the search
-     */
-    @GetMapping("/_search/users/{query}")
-    @Timed
-    public List<User> search(@PathVariable String query) {
-        return StreamSupport
-            .stream(userSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
 }

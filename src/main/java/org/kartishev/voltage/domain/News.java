@@ -2,15 +2,14 @@ package org.kartishev.voltage.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
+import org.kartishev.voltage.domain.enumeration.Language;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
-
-import org.kartishev.voltage.domain.enumeration.Language;
 
 /**
  * A News.
@@ -18,7 +17,6 @@ import org.kartishev.voltage.domain.enumeration.Language;
 @Entity
 @Table(name = "news")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "news")
 public class News implements Serializable {
 
     private static final long serialVersionUID = 1L;

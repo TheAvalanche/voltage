@@ -3,7 +3,6 @@ package org.kartishev.voltage.domain;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.kartishev.voltage.domain.enumeration.Language;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,7 +17,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "blog_category")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "blogcategory")
 public class BlogCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;

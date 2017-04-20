@@ -101,7 +101,6 @@
     "generator-jhipster-entity-audit": "2.4.0",
     "generator-jhipster-entity-audit-and-delete": "2.2.2",
     "generator-jhipster-darktheme": "0.0.7",
-    "generator-jhipster-elasticsearch-reindexer": "0.3.0",
     "generator-jhipster-spring-social-connectors": "0.0.1",
     "generator-jhipster-material": "0.0.0",
     "generator-jhipster-basic-auth": "1.0.1",

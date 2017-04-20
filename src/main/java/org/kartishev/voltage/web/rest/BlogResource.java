@@ -1,12 +1,12 @@
 package org.kartishev.voltage.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiParam;
 import org.kartishev.voltage.service.BlogService;
+import org.kartishev.voltage.service.dto.BlogDTO;
 import org.kartishev.voltage.web.rest.util.HeaderUtil;
 import org.kartishev.voltage.web.rest.util.PaginationUtil;
-import org.kartishev.voltage.service.dto.BlogDTO;
-import io.swagger.annotations.ApiParam;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -19,13 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Blog.
@@ -37,7 +32,7 @@ public class BlogResource {
     private final Logger log = LoggerFactory.getLogger(BlogResource.class);
 
     private static final String ENTITY_NAME = "blog";
-        
+
     private final BlogService blogService;
 
     public BlogResource(BlogService blogService) {
@@ -128,23 +123,4 @@ public class BlogResource {
         blogService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
-    /**
-     * SEARCH  /_search/blogs?query=:query : search for the blog corresponding
-     * to the query.
-     *
-     * @param query the query of the blog search 
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/blogs")
-    @Timed
-    public ResponseEntity<List<BlogDTO>> searchBlogs(@RequestParam String query, @ApiParam Pageable pageable) {
-        log.debug("REST request to search for a page of Blogs for query {}", query);
-        Page<BlogDTO> page = blogService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/blogs");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
-
-
 }

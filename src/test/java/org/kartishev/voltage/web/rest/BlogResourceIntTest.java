@@ -1,18 +1,16 @@
 package org.kartishev.voltage.web.rest;
 
-import org.kartishev.voltage.VoltageApp;
-
-import org.kartishev.voltage.domain.Blog;
-import org.kartishev.voltage.repository.BlogRepository;
-import org.kartishev.voltage.service.BlogService;
-import org.kartishev.voltage.repository.search.BlogSearchRepository;
-import org.kartishev.voltage.service.dto.BlogDTO;
-import org.kartishev.voltage.service.mapper.BlogMapper;
-import org.kartishev.voltage.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kartishev.voltage.VoltageApp;
+import org.kartishev.voltage.domain.Blog;
+import org.kartishev.voltage.domain.enumeration.Language;
+import org.kartishev.voltage.repository.BlogRepository;
+import org.kartishev.voltage.service.BlogService;
+import org.kartishev.voltage.service.dto.BlogDTO;
+import org.kartishev.voltage.service.mapper.BlogMapper;
+import org.kartishev.voltage.web.rest.errors.ExceptionTranslator;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,22 +21,19 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 
-import static org.kartishev.voltage.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.kartishev.voltage.web.rest.TestUtil.sameInstant;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import org.kartishev.voltage.domain.enumeration.Language;
 /**
  * Test class for the BlogResource REST controller.
  *
@@ -75,8 +70,7 @@ public class BlogResourceIntTest {
     @Autowired
     private BlogService blogService;
 
-    @Autowired
-    private BlogSearchRepository blogSearchRepository;
+
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -123,7 +117,6 @@ public class BlogResourceIntTest {
 
     @Before
     public void initTest() {
-        blogSearchRepository.deleteAll();
         blog = createEntity(em);
     }
 
@@ -150,9 +143,6 @@ public class BlogResourceIntTest {
         assertThat(testBlog.getBody()).isEqualTo(DEFAULT_BODY);
         assertThat(testBlog.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
 
-        // Validate the Blog in Elasticsearch
-        Blog blogEs = blogSearchRepository.findOne(testBlog.getId());
-        assertThat(blogEs).isEqualToComparingFieldByField(testBlog);
     }
 
     @Test
@@ -283,7 +273,6 @@ public class BlogResourceIntTest {
     public void updateBlog() throws Exception {
         // Initialize the database
         blogRepository.saveAndFlush(blog);
-        blogSearchRepository.save(blog);
         int databaseSizeBeforeUpdate = blogRepository.findAll().size();
 
         // Update the blog
@@ -312,10 +301,6 @@ public class BlogResourceIntTest {
         assertThat(testBlog.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testBlog.getBody()).isEqualTo(UPDATED_BODY);
         assertThat(testBlog.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
-
-        // Validate the Blog in Elasticsearch
-        Blog blogEs = blogSearchRepository.findOne(testBlog.getId());
-        assertThat(blogEs).isEqualToComparingFieldByField(testBlog);
     }
 
     @Test
@@ -342,7 +327,6 @@ public class BlogResourceIntTest {
     public void deleteBlog() throws Exception {
         // Initialize the database
         blogRepository.saveAndFlush(blog);
-        blogSearchRepository.save(blog);
         int databaseSizeBeforeDelete = blogRepository.findAll().size();
 
         // Get the blog
@@ -350,34 +334,11 @@ public class BlogResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean blogExistsInEs = blogSearchRepository.exists(blog.getId());
-        assertThat(blogExistsInEs).isFalse();
-
         // Validate the database is empty
         List<Blog> blogList = blogRepository.findAll();
         assertThat(blogList).hasSize(databaseSizeBeforeDelete - 1);
     }
 
-    @Test
-    @Transactional
-    public void searchBlog() throws Exception {
-        // Initialize the database
-        blogRepository.saveAndFlush(blog);
-        blogSearchRepository.save(blog);
-
-        // Search the blog
-        restBlogMockMvc.perform(get("/api/_search/blogs?query=id:" + blog.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(blog.getId().intValue())))
-            .andExpect(jsonPath("$.[*].created").value(hasItem(sameInstant(DEFAULT_CREATED))))
-            .andExpect(jsonPath("$.[*].updated").value(hasItem(sameInstant(DEFAULT_UPDATED))))
-            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)))
-            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
-            .andExpect(jsonPath("$.[*].body").value(hasItem(DEFAULT_BODY.toString())))
-            .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE.toString())));
-    }
 
     @Test
     @Transactional

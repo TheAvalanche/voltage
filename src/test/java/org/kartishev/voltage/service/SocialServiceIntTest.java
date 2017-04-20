@@ -1,16 +1,13 @@
 package org.kartishev.voltage.service;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.kartishev.voltage.VoltageApp;
 import org.kartishev.voltage.domain.Authority;
 import org.kartishev.voltage.domain.User;
 import org.kartishev.voltage.repository.AuthorityRepository;
 import org.kartishev.voltage.repository.UserRepository;
-import org.kartishev.voltage.repository.search.UserSearchRepository;
-import org.kartishev.voltage.service.MailService;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +37,6 @@ public class SocialServiceIntTest {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private UserSearchRepository userSearchRepository;
 
 
     @Mock
@@ -63,7 +58,7 @@ public class SocialServiceIntTest {
         when(mockUsersConnectionRepository.createConnectionRepository(anyString())).thenReturn(mockConnectionRepository);
 
         socialService = new SocialService(mockUsersConnectionRepository, authorityRepository,
-                passwordEncoder, userRepository, mockMailService, userSearchRepository);
+                passwordEncoder, userRepository, mockMailService);
     }
 
     @Test

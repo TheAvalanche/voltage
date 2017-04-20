@@ -1,12 +1,12 @@
 package org.kartishev.voltage.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiParam;
 import org.kartishev.voltage.service.BlogCategoryService;
+import org.kartishev.voltage.service.dto.BlogCategoryDTO;
 import org.kartishev.voltage.web.rest.util.HeaderUtil;
 import org.kartishev.voltage.web.rest.util.PaginationUtil;
-import org.kartishev.voltage.service.dto.BlogCategoryDTO;
-import io.swagger.annotations.ApiParam;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -19,13 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing BlogCategory.
@@ -37,7 +32,7 @@ public class BlogCategoryResource {
     private final Logger log = LoggerFactory.getLogger(BlogCategoryResource.class);
 
     private static final String ENTITY_NAME = "blogCategory";
-        
+
     private final BlogCategoryService blogCategoryService;
 
     public BlogCategoryResource(BlogCategoryService blogCategoryService) {
@@ -128,23 +123,4 @@ public class BlogCategoryResource {
         blogCategoryService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
-    /**
-     * SEARCH  /_search/blog-categories?query=:query : search for the blogCategory corresponding
-     * to the query.
-     *
-     * @param query the query of the blogCategory search 
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/blog-categories")
-    @Timed
-    public ResponseEntity<List<BlogCategoryDTO>> searchBlogCategories(@RequestParam String query, @ApiParam Pageable pageable) {
-        log.debug("REST request to search for a page of BlogCategories for query {}", query);
-        Page<BlogCategoryDTO> page = blogCategoryService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/blog-categories");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
-
-
 }

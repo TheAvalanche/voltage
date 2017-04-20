@@ -1,18 +1,16 @@
 package org.kartishev.voltage.web.rest;
 
-import org.kartishev.voltage.VoltageApp;
-
-import org.kartishev.voltage.domain.BlogCategory;
-import org.kartishev.voltage.repository.BlogCategoryRepository;
-import org.kartishev.voltage.service.BlogCategoryService;
-import org.kartishev.voltage.repository.search.BlogCategorySearchRepository;
-import org.kartishev.voltage.service.dto.BlogCategoryDTO;
-import org.kartishev.voltage.service.mapper.BlogCategoryMapper;
-import org.kartishev.voltage.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kartishev.voltage.VoltageApp;
+import org.kartishev.voltage.domain.BlogCategory;
+import org.kartishev.voltage.domain.enumeration.Language;
+import org.kartishev.voltage.repository.BlogCategoryRepository;
+import org.kartishev.voltage.service.BlogCategoryService;
+import org.kartishev.voltage.service.dto.BlogCategoryDTO;
+import org.kartishev.voltage.service.mapper.BlogCategoryMapper;
+import org.kartishev.voltage.web.rest.errors.ExceptionTranslator;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,18 +24,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 
-import static org.kartishev.voltage.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.kartishev.voltage.web.rest.TestUtil.sameInstant;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import org.kartishev.voltage.domain.enumeration.Language;
 /**
  * Test class for the BlogCategoryResource REST controller.
  *
@@ -70,9 +66,6 @@ public class BlogCategoryResourceIntTest {
 
     @Autowired
     private BlogCategoryService blogCategoryService;
-
-    @Autowired
-    private BlogCategorySearchRepository blogCategorySearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -118,7 +111,6 @@ public class BlogCategoryResourceIntTest {
 
     @Before
     public void initTest() {
-        blogCategorySearchRepository.deleteAll();
         blogCategory = createEntity(em);
     }
 
@@ -144,9 +136,6 @@ public class BlogCategoryResourceIntTest {
         assertThat(testBlogCategory.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testBlogCategory.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
 
-        // Validate the BlogCategory in Elasticsearch
-        BlogCategory blogCategoryEs = blogCategorySearchRepository.findOne(testBlogCategory.getId());
-        assertThat(blogCategoryEs).isEqualToComparingFieldByField(testBlogCategory);
     }
 
     @Test
@@ -256,7 +245,6 @@ public class BlogCategoryResourceIntTest {
     public void updateBlogCategory() throws Exception {
         // Initialize the database
         blogCategoryRepository.saveAndFlush(blogCategory);
-        blogCategorySearchRepository.save(blogCategory);
         int databaseSizeBeforeUpdate = blogCategoryRepository.findAll().size();
 
         // Update the blogCategory
@@ -284,9 +272,6 @@ public class BlogCategoryResourceIntTest {
         assertThat(testBlogCategory.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testBlogCategory.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
 
-        // Validate the BlogCategory in Elasticsearch
-        BlogCategory blogCategoryEs = blogCategorySearchRepository.findOne(testBlogCategory.getId());
-        assertThat(blogCategoryEs).isEqualToComparingFieldByField(testBlogCategory);
     }
 
     @Test
@@ -313,7 +298,6 @@ public class BlogCategoryResourceIntTest {
     public void deleteBlogCategory() throws Exception {
         // Initialize the database
         blogCategoryRepository.saveAndFlush(blogCategory);
-        blogCategorySearchRepository.save(blogCategory);
         int databaseSizeBeforeDelete = blogCategoryRepository.findAll().size();
 
         // Get the blogCategory
@@ -321,33 +305,11 @@ public class BlogCategoryResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean blogCategoryExistsInEs = blogCategorySearchRepository.exists(blogCategory.getId());
-        assertThat(blogCategoryExistsInEs).isFalse();
-
         // Validate the database is empty
         List<BlogCategory> blogCategoryList = blogCategoryRepository.findAll();
         assertThat(blogCategoryList).hasSize(databaseSizeBeforeDelete - 1);
     }
 
-    @Test
-    @Transactional
-    public void searchBlogCategory() throws Exception {
-        // Initialize the database
-        blogCategoryRepository.saveAndFlush(blogCategory);
-        blogCategorySearchRepository.save(blogCategory);
-
-        // Search the blogCategory
-        restBlogCategoryMockMvc.perform(get("/api/_search/blog-categories?query=id:" + blogCategory.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(blogCategory.getId().intValue())))
-            .andExpect(jsonPath("$.[*].created").value(hasItem(sameInstant(DEFAULT_CREATED))))
-            .andExpect(jsonPath("$.[*].updated").value(hasItem(sameInstant(DEFAULT_UPDATED))))
-            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)))
-            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
-            .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE.toString())));
-    }
 
     @Test
     @Transactional

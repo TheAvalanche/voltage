@@ -1,18 +1,16 @@
 package org.kartishev.voltage.web.rest;
 
-import org.kartishev.voltage.VoltageApp;
-
-import org.kartishev.voltage.domain.News;
-import org.kartishev.voltage.repository.NewsRepository;
-import org.kartishev.voltage.service.NewsService;
-import org.kartishev.voltage.repository.search.NewsSearchRepository;
-import org.kartishev.voltage.service.dto.NewsDTO;
-import org.kartishev.voltage.service.mapper.NewsMapper;
-import org.kartishev.voltage.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kartishev.voltage.VoltageApp;
+import org.kartishev.voltage.domain.News;
+import org.kartishev.voltage.domain.enumeration.Language;
+import org.kartishev.voltage.repository.NewsRepository;
+import org.kartishev.voltage.service.NewsService;
+import org.kartishev.voltage.service.dto.NewsDTO;
+import org.kartishev.voltage.service.mapper.NewsMapper;
+import org.kartishev.voltage.web.rest.errors.ExceptionTranslator;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,18 +25,16 @@ import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 
-import static org.kartishev.voltage.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.kartishev.voltage.web.rest.TestUtil.sameInstant;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import org.kartishev.voltage.domain.enumeration.Language;
 /**
  * Test class for the NewsResource REST controller.
  *
@@ -79,9 +75,6 @@ public class NewsResourceIntTest {
 
     @Autowired
     private NewsService newsService;
-
-    @Autowired
-    private NewsSearchRepository newsSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -130,7 +123,6 @@ public class NewsResourceIntTest {
 
     @Before
     public void initTest() {
-        newsSearchRepository.deleteAll();
         news = createEntity(em);
     }
 
@@ -159,9 +151,6 @@ public class NewsResourceIntTest {
         assertThat(testNews.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
         assertThat(testNews.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
 
-        // Validate the News in Elasticsearch
-        News newsEs = newsSearchRepository.findOne(testNews.getId());
-        assertThat(newsEs).isEqualToComparingFieldByField(testNews);
     }
 
     @Test
@@ -296,7 +285,6 @@ public class NewsResourceIntTest {
     public void updateNews() throws Exception {
         // Initialize the database
         newsRepository.saveAndFlush(news);
-        newsSearchRepository.save(news);
         int databaseSizeBeforeUpdate = newsRepository.findAll().size();
 
         // Update the news
@@ -330,9 +318,6 @@ public class NewsResourceIntTest {
         assertThat(testNews.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testNews.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
 
-        // Validate the News in Elasticsearch
-        News newsEs = newsSearchRepository.findOne(testNews.getId());
-        assertThat(newsEs).isEqualToComparingFieldByField(testNews);
     }
 
     @Test
@@ -359,7 +344,7 @@ public class NewsResourceIntTest {
     public void deleteNews() throws Exception {
         // Initialize the database
         newsRepository.saveAndFlush(news);
-        newsSearchRepository.save(news);
+
         int databaseSizeBeforeDelete = newsRepository.findAll().size();
 
         // Get the news
@@ -367,36 +352,11 @@ public class NewsResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
-        // Validate Elasticsearch is empty
-        boolean newsExistsInEs = newsSearchRepository.exists(news.getId());
-        assertThat(newsExistsInEs).isFalse();
-
         // Validate the database is empty
         List<News> newsList = newsRepository.findAll();
         assertThat(newsList).hasSize(databaseSizeBeforeDelete - 1);
     }
 
-    @Test
-    @Transactional
-    public void searchNews() throws Exception {
-        // Initialize the database
-        newsRepository.saveAndFlush(news);
-        newsSearchRepository.save(news);
-
-        // Search the news
-        restNewsMockMvc.perform(get("/api/_search/news?query=id:" + news.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(news.getId().intValue())))
-            .andExpect(jsonPath("$.[*].created").value(hasItem(sameInstant(DEFAULT_CREATED))))
-            .andExpect(jsonPath("$.[*].updated").value(hasItem(sameInstant(DEFAULT_UPDATED))))
-            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)))
-            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
-            .andExpect(jsonPath("$.[*].body").value(hasItem(DEFAULT_BODY.toString())))
-            .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
-            .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE.toString())));
-    }
 
     @Test
     @Transactional

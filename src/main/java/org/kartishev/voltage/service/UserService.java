@@ -1,17 +1,15 @@
 package org.kartishev.voltage.service;
 
+import org.kartishev.voltage.config.Constants;
 import org.kartishev.voltage.domain.Authority;
 import org.kartishev.voltage.domain.User;
 import org.kartishev.voltage.repository.AuthorityRepository;
 import org.kartishev.voltage.repository.PersistentTokenRepository;
-import org.kartishev.voltage.config.Constants;
 import org.kartishev.voltage.repository.UserRepository;
-import org.kartishev.voltage.repository.search.UserSearchRepository;
 import org.kartishev.voltage.security.AuthoritiesConstants;
 import org.kartishev.voltage.security.SecurityUtils;
-import org.kartishev.voltage.service.util.RandomUtil;
 import org.kartishev.voltage.service.dto.UserDTO;
-
+import org.kartishev.voltage.service.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -23,7 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service class for managing users.
@@ -40,17 +41,14 @@ public class UserService {
 
     private final SocialService socialService;
 
-    private final UserSearchRepository userSearchRepository;
-
     private final PersistentTokenRepository persistentTokenRepository;
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, SocialService socialService, UserSearchRepository userSearchRepository, PersistentTokenRepository persistentTokenRepository, AuthorityRepository authorityRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, SocialService socialService, PersistentTokenRepository persistentTokenRepository, AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.socialService = socialService;
-        this.userSearchRepository = userSearchRepository;
         this.persistentTokenRepository = persistentTokenRepository;
         this.authorityRepository = authorityRepository;
     }
@@ -62,7 +60,6 @@ public class UserService {
                 // activate given user for the registration key.
                 user.setActivated(true);
                 user.setActivationKey(null);
-                userSearchRepository.save(user);
                 log.debug("Activated user: {}", user);
                 return user;
             });
@@ -116,7 +113,6 @@ public class UserService {
         authorities.add(authority);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
-        userSearchRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
@@ -146,7 +142,6 @@ public class UserService {
         user.setResetDate(ZonedDateTime.now());
         user.setActivated(true);
         userRepository.save(user);
-        userSearchRepository.save(user);
         log.debug("Created Information for User: {}", user);
         return user;
     }
@@ -167,7 +162,6 @@ public class UserService {
             user.setEmail(email);
             user.setLangKey(langKey);
             user.setImageUrl(imageUrl);
-            userSearchRepository.save(user);
             log.debug("Changed Information for User: {}", user);
         });
     }
@@ -204,7 +198,6 @@ public class UserService {
         userRepository.findOneByLogin(login).ifPresent(user -> {
             socialService.deleteUserSocialConnection(user.getLogin());
             userRepository.delete(user);
-            userSearchRepository.delete(user);
             log.debug("Deleted User: {}", user);
         });
     }
@@ -268,7 +261,6 @@ public class UserService {
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);
-            userSearchRepository.delete(user);
         }
     }
 }

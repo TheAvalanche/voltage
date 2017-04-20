@@ -1,12 +1,12 @@
 package org.kartishev.voltage.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiParam;
 import org.kartishev.voltage.service.NewsService;
+import org.kartishev.voltage.service.dto.NewsDTO;
 import org.kartishev.voltage.web.rest.util.HeaderUtil;
 import org.kartishev.voltage.web.rest.util.PaginationUtil;
-import org.kartishev.voltage.service.dto.NewsDTO;
-import io.swagger.annotations.ApiParam;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -19,13 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing News.
@@ -37,7 +32,7 @@ public class NewsResource {
     private final Logger log = LoggerFactory.getLogger(NewsResource.class);
 
     private static final String ENTITY_NAME = "news";
-        
+
     private final NewsService newsService;
 
     public NewsResource(NewsService newsService) {
@@ -128,23 +123,5 @@ public class NewsResource {
         newsService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
-    /**
-     * SEARCH  /_search/news?query=:query : search for the news corresponding
-     * to the query.
-     *
-     * @param query the query of the news search 
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/news")
-    @Timed
-    public ResponseEntity<List<NewsDTO>> searchNews(@RequestParam String query, @ApiParam Pageable pageable) {
-        log.debug("REST request to search for a page of News for query {}", query);
-        Page<NewsDTO> page = newsService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/news");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
-
 
 }
