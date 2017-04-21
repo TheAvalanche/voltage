@@ -1,28 +1,22 @@
+<div class="row">
+    <div class="col-md-6 offset-md-2 col-sm-12 col-xs-12">
+        <article *ngIf="news" class="news-article">
+            <header class="news-header">
+                <a>{{news.title}}</a>
+            </header>
+            <figure class="news-figure">
+                <img [src]="'data:' + news.imageContentType + ';base64,' + news.image" alt="news image"/>
+            </figure>
+            <p>
+                {{news.body}}
+            </p>
+            <p>
+                {{news.created | date:'medium'}}
+            </p>
+        </article>
+    </div>
 
-<div *ngIf="news">
-    <h2><span jhiTranslate="voltageApp.news.detail.title">News</span> {{news.id}}</h2>
-    <hr>
-    <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="voltageApp.news.created">Created</span></dt>
-        <dd>
-            <span>{{news.created | date:'medium'}}</span>
-        </dd>
-        <dt><span jhiTranslate="voltageApp.news.title">Title</span></dt>
-        <dd>
-            <span>{{news.title}}</span>
-        </dd>
-        <dt><span jhiTranslate="voltageApp.news.body">Body</span></dt>
-        <dd>
-            <span>{{news.body}}</span>
-        </dd>
-        <dt><span jhiTranslate="voltageApp.news.image">Image</span></dt>
-        <dd>
-            <div *ngIf="news.image">
-                <a>
-                    <img [src]="'data:' + news.imageContentType + ';base64,' + news.image" style="max-width: 100%;" alt="news image"/>
-                </a>
-            </div>
-        </dd>
-    </dl>
+    <div class="col-md-2 col-sm-12 col-xs-12">
+        <jhi-public-news></jhi-public-news>
+    </div>
 </div>

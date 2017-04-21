@@ -7,7 +7,10 @@ import {PublicNewsService} from './public-news.service';
 
 @Component({
     selector: 'jhi-public-news-detail',
-    templateUrl: './public-news-detail.component.html'
+    templateUrl: './public-news-detail.component.html',
+    styles: [
+        'public-news-detail.scss'
+    ]
 })
 export class PublicNewsDetailComponent implements OnInit, OnDestroy {
 

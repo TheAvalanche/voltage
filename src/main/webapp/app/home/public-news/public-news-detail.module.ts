@@ -4,15 +4,17 @@ import { RouterModule } from '@angular/router';
 import { VoltageSharedModule } from '../../shared';
 
 import { PUBLIC_NEWS_DETAIL_ROUTE, PublicNewsDetailComponent} from './';
+import {VoltagePublicNewsModule} from './public-news.module';
 
 
 @NgModule({
     imports: [
         VoltageSharedModule,
+        VoltagePublicNewsModule,
         RouterModule.forRoot([ PUBLIC_NEWS_DETAIL_ROUTE ], { useHash: true })
     ],
     declarations: [
-        PublicNewsDetailComponent,
+        PublicNewsDetailComponent
     ],
     entryComponents: [
     ],
