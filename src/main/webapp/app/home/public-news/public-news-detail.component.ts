@@ -8,7 +8,7 @@ import {PublicNewsService} from './public-news.service';
 @Component({
     selector: 'jhi-public-news-detail',
     templateUrl: './public-news-detail.component.html',
-    styles: [
+    styleUrls: [
         'public-news-detail.scss'
     ]
 })

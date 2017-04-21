@@ -1,22 +1,20 @@
 <div class="row">
-    <div class="col-md-6 offset-md-2 col-sm-12 col-xs-12">
-        <article *ngIf="news" class="news-article">
-            <header class="news-header">
+    <div class="col-md-5 offset-md-2 col-sm-12 col-xs-12">
+        <article *ngIf="news" class="news-detail-article">
+            <header class="news-detail-header">
                 <a>{{news.title}}</a>
             </header>
-            <figure class="news-figure">
+            <figure class="news-detail-figure">
                 <img [src]="'data:' + news.imageContentType + ';base64,' + news.image" alt="news image"/>
             </figure>
-            <p>
-                {{news.body}}
-            </p>
-            <p>
-                {{news.created | date:'medium'}}
+            <p class="news-detail-content" [innerHTML]="news.body"></p>
+            <p class="news-detail-comment">
+                {{news.created | date:'short'}}
             </p>
         </article>
     </div>
 
-    <div class="col-md-2 col-sm-12 col-xs-12">
+    <div class="col-md-2 offset-md-1 col-sm-12 col-xs-12">
         <jhi-public-news></jhi-public-news>
     </div>
 </div>
