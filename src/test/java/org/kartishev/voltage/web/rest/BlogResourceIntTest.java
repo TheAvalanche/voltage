@@ -49,8 +49,8 @@ public class BlogResourceIntTest {
     private static final ZonedDateTime DEFAULT_UPDATED = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_UPDATED = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
-    private static final Integer DEFAULT_VERSION = 1;
-    private static final Integer UPDATED_VERSION = 2;
+    private static final Long DEFAULT_VERSION = 1L;
+    private static final Long UPDATED_VERSION = 2L;
 
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";

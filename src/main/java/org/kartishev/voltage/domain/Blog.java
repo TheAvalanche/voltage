@@ -7,7 +7,6 @@ import org.kartishev.voltage.domain.enumeration.Language;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Objects;
@@ -19,23 +18,7 @@ import java.util.Set;
 @Entity
 @Table(name = "blog")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Blog implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
-    private Long id;
-
-    @Column(name = "created")
-    private ZonedDateTime created;
-
-    @Column(name = "updated")
-    private ZonedDateTime updated;
-
-    @Column(name = "version")
-    private Integer version;
+public class Blog extends BaseEntity {
 
     @NotNull
     @Size(min = 0, max = 255)
@@ -59,51 +42,19 @@ public class Blog implements Serializable {
                inverseJoinColumns = @JoinColumn(name="blog_categories_id", referencedColumnName="id"))
     private Set<BlogCategory> blogCategories = new HashSet<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public ZonedDateTime getCreated() {
-        return created;
-    }
-
     public Blog created(ZonedDateTime created) {
-        this.created = created;
+        setCreated(created);
         return this;
     }
 
-    public void setCreated(ZonedDateTime created) {
-        this.created = created;
-    }
-
-    public ZonedDateTime getUpdated() {
-        return updated;
+    public Blog version(Long version) {
+        setVersion(version);
+        return this;
     }
 
     public Blog updated(ZonedDateTime updated) {
-        this.updated = updated;
+        setUpdated(updated);
         return this;
-    }
-
-    public void setUpdated(ZonedDateTime updated) {
-        this.updated = updated;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public Blog version(Integer version) {
-        this.version = version;
-        return this;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     public String getTitle() {
@@ -179,24 +130,24 @@ public class Blog implements Serializable {
             return false;
         }
         Blog blog = (Blog) o;
-        if (blog.id == null || id == null) {
+        if (blog.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(id, blog.id);
+        return Objects.equals(getId(), blog.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     @Override
     public String toString() {
         return "Blog{" +
-            "id=" + id +
-            ", created='" + created + "'" +
-            ", updated='" + updated + "'" +
-            ", version='" + version + "'" +
+            "id=" + getId() +
+            ", created='" + getCreated() + "'" +
+            ", updated='" + getUpdated() + "'" +
+            ", version='" + getVersion() + "'" +
             ", title='" + title + "'" +
             ", body='" + body + "'" +
             ", language='" + language + "'" +
