@@ -11,9 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Service Implementation for managing News.
- */
 @Service
 @Transactional
 public class NewsService {
@@ -29,12 +26,6 @@ public class NewsService {
         this.newsMapper = newsMapper;
     }
 
-    /**
-     * Save a news.
-     *
-     * @param newsDTO the entity to save
-     * @return the persisted entity
-     */
     public NewsDTO save(NewsDTO newsDTO) {
         log.debug("Request to save News : {}", newsDTO);
         News news = newsMapper.newsDTOToNews(newsDTO);
@@ -43,25 +34,13 @@ public class NewsService {
         return result;
     }
 
-    /**
-     *  Get all the news.
-     *
-     *  @param pageable the pagination information
-     *  @return the list of entities
-     */
     @Transactional(readOnly = true)
     public Page<NewsDTO> findAll(Pageable pageable) {
         log.debug("Request to get all News");
         Page<News> result = newsRepository.findAll(pageable);
-        return result.map(news -> newsMapper.newsToNewsDTO(news));
+        return result.map(newsMapper::newsToNewsDTO);
     }
 
-    /**
-     *  Get one news by id.
-     *
-     *  @param id the id of the entity
-     *  @return the entity
-     */
     @Transactional(readOnly = true)
     public NewsDTO findOne(Long id) {
         log.debug("Request to get News : {}", id);
@@ -70,11 +49,6 @@ public class NewsService {
         return newsDTO;
     }
 
-    /**
-     *  Delete the  news by id.
-     *
-     *  @param id the id of the entity
-     */
     public void delete(Long id) {
         log.debug("Request to delete News : {}", id);
         newsRepository.delete(id);

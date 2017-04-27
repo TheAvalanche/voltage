@@ -55,9 +55,14 @@ public abstract class BaseEntity {
         this.version = version;
     }
 
-    @PreUpdate
     @PrePersist
     public void prePersist() {
+        this.setCreated(ZonedDateTime.now());
+        this.setUpdated(ZonedDateTime.now());
+    }
+
+    @PreUpdate
+    public void preUpdate() {
         this.setUpdated(ZonedDateTime.now());
     }
 

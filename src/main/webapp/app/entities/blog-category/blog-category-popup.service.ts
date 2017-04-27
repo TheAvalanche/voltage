@@ -23,10 +23,6 @@ export class BlogCategoryPopupService {
 
         if (id) {
             this.blogCategoryService.find(id).subscribe(blogCategory => {
-                blogCategory.created = this.datePipe
-                    .transform(blogCategory.created, 'yyyy-MM-ddThh:mm');
-                blogCategory.updated = this.datePipe
-                    .transform(blogCategory.updated, 'yyyy-MM-ddThh:mm');
                 this.blogCategoryModalRef(component, blogCategory);
             });
         } else {

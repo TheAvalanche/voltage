@@ -1,25 +1,21 @@
 package org.kartishev.voltage.service.dto;
 
 
-import java.time.ZonedDateTime;
-import javax.validation.constraints.*;
-import java.io.Serializable;
-import java.util.Objects;
-import javax.persistence.Lob;
 import org.kartishev.voltage.domain.enumeration.Language;
 
-/**
- * A DTO for the News entity.
- */
+import javax.persistence.Lob;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.time.ZonedDateTime;
+import java.util.Objects;
+
+
 public class NewsDTO implements Serializable {
 
     private Long id;
 
     private ZonedDateTime created;
-
-    private ZonedDateTime updated;
-
-    private Integer version;
 
     @NotNull
     @Size(min = 0, max = 255)
@@ -50,20 +46,7 @@ public class NewsDTO implements Serializable {
     public void setCreated(ZonedDateTime created) {
         this.created = created;
     }
-    public ZonedDateTime getUpdated() {
-        return updated;
-    }
 
-    public void setUpdated(ZonedDateTime updated) {
-        this.updated = updated;
-    }
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
     public String getTitle() {
         return title;
     }
@@ -127,8 +110,6 @@ public class NewsDTO implements Serializable {
         return "NewsDTO{" +
             "id=" + id +
             ", created='" + created + "'" +
-            ", updated='" + updated + "'" +
-            ", version='" + version + "'" +
             ", title='" + title + "'" +
             ", body='" + body + "'" +
             ", image='" + image + "'" +

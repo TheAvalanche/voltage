@@ -11,9 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Service Implementation for managing Blog.
- */
 @Service
 @Transactional
 public class BlogService {
@@ -30,12 +27,6 @@ public class BlogService {
         this.blogMapper = blogMapper;
     }
 
-    /**
-     * Save a blog.
-     *
-     * @param blogDTO the entity to save
-     * @return the persisted entity
-     */
     public BlogDTO save(BlogDTO blogDTO) {
         log.debug("Request to save Blog : {}", blogDTO);
         Blog blog = blogMapper.blogDTOToBlog(blogDTO);
@@ -44,12 +35,6 @@ public class BlogService {
         return result;
     }
 
-    /**
-     *  Get all the blogs.
-     *
-     *  @param pageable the pagination information
-     *  @return the list of entities
-     */
     @Transactional(readOnly = true)
     public Page<BlogDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Blogs");
@@ -57,12 +42,6 @@ public class BlogService {
         return result.map(blog -> blogMapper.blogToBlogDTO(blog));
     }
 
-    /**
-     *  Get one blog by id.
-     *
-     *  @param id the id of the entity
-     *  @return the entity
-     */
     @Transactional(readOnly = true)
     public BlogDTO findOne(Long id) {
         log.debug("Request to get Blog : {}", id);
@@ -71,11 +50,6 @@ public class BlogService {
         return blogDTO;
     }
 
-    /**
-     *  Delete the  blog by id.
-     *
-     *  @param id the id of the entity
-     */
     public void delete(Long id) {
         log.debug("Request to delete Blog : {}", id);
         blogRepository.delete(id);

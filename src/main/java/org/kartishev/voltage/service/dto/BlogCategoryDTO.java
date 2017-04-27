@@ -6,21 +6,12 @@ import org.kartishev.voltage.domain.enumeration.Language;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.Objects;
 
-/**
- * A DTO for the BlogCategory entity.
- */
+
 public class BlogCategoryDTO implements Serializable {
 
     private Long id;
-
-    private ZonedDateTime created;
-
-    private ZonedDateTime updated;
-
-    private Integer version;
 
     @NotNull
     @Size(min = 0, max = 100)
@@ -36,27 +27,7 @@ public class BlogCategoryDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    public ZonedDateTime getCreated() {
-        return created;
-    }
 
-    public void setCreated(ZonedDateTime created) {
-        this.created = created;
-    }
-    public ZonedDateTime getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(ZonedDateTime updated) {
-        this.updated = updated;
-    }
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
     public String getTitle() {
         return title;
     }
@@ -97,9 +68,6 @@ public class BlogCategoryDTO implements Serializable {
     public String toString() {
         return "BlogCategoryDTO{" +
             "id=" + id +
-            ", created='" + created + "'" +
-            ", updated='" + updated + "'" +
-            ", version='" + version + "'" +
             ", title='" + title + "'" +
             ", language='" + language + "'" +
             '}';

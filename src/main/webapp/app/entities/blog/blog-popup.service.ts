@@ -25,8 +25,6 @@ export class BlogPopupService {
             this.blogService.find(id).subscribe(blog => {
                 blog.created = this.datePipe
                     .transform(blog.created, 'yyyy-MM-ddThh:mm');
-                blog.updated = this.datePipe
-                    .transform(blog.updated, 'yyyy-MM-ddThh:mm');
                 this.blogModalRef(component, blog);
             });
         } else {

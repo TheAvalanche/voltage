@@ -25,8 +25,6 @@ export class NewsPopupService {
             this.newsService.find(id).subscribe(news => {
                 news.created = this.datePipe
                     .transform(news.created, 'yyyy-MM-ddThh:mm');
-                news.updated = this.datePipe
-                    .transform(news.updated, 'yyyy-MM-ddThh:mm');
                 this.newsModalRef(component, news);
             });
         } else {

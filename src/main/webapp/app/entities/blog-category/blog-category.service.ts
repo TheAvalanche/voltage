@@ -14,8 +14,7 @@ export class BlogCategoryService {
 
     create(blogCategory: BlogCategory): Observable<BlogCategory> {
         let copy: BlogCategory = Object.assign({}, blogCategory);
-        copy.created = this.dateUtils.toDate(blogCategory.created);
-        copy.updated = this.dateUtils.toDate(blogCategory.updated);
+
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -24,9 +23,6 @@ export class BlogCategoryService {
     update(blogCategory: BlogCategory): Observable<BlogCategory> {
         let copy: BlogCategory = Object.assign({}, blogCategory);
 
-        copy.created = this.dateUtils.toDate(blogCategory.created);
-
-        copy.updated = this.dateUtils.toDate(blogCategory.updated);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -35,10 +31,6 @@ export class BlogCategoryService {
     find(id: number): Observable<BlogCategory> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             let jsonResponse = res.json();
-            jsonResponse.created = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse.created);
-            jsonResponse.updated = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse.updated);
             return jsonResponse;
         });
     }
@@ -62,14 +54,7 @@ export class BlogCategoryService {
     }
 
     private convertResponse(res: any): any {
-        let jsonResponse = res.json();
-        for (let i = 0; i < jsonResponse.length; i++) {
-            jsonResponse[i].created = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse[i].created);
-            jsonResponse[i].updated = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse[i].updated);
-        }
-        res._body = jsonResponse;
+        res._body = res.json();
         return res;
     }
 

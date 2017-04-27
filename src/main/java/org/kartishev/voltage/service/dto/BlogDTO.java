@@ -1,27 +1,22 @@
 package org.kartishev.voltage.service.dto;
 
 
-import java.time.ZonedDateTime;
-import javax.validation.constraints.*;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
-import javax.persistence.Lob;
 import org.kartishev.voltage.domain.enumeration.Language;
 
-/**
- * A DTO for the Blog entity.
- */
+import javax.persistence.Lob;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
 public class BlogDTO implements Serializable {
 
     private Long id;
 
     private ZonedDateTime created;
-
-    private ZonedDateTime updated;
-
-    private Integer version;
 
     @NotNull
     @Size(min = 0, max = 255)
@@ -50,20 +45,7 @@ public class BlogDTO implements Serializable {
     public void setCreated(ZonedDateTime created) {
         this.created = created;
     }
-    public ZonedDateTime getUpdated() {
-        return updated;
-    }
 
-    public void setUpdated(ZonedDateTime updated) {
-        this.updated = updated;
-    }
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
     public String getTitle() {
         return title;
     }
@@ -120,8 +102,6 @@ public class BlogDTO implements Serializable {
         return "BlogDTO{" +
             "id=" + id +
             ", created='" + created + "'" +
-            ", updated='" + updated + "'" +
-            ", version='" + version + "'" +
             ", title='" + title + "'" +
             ", body='" + body + "'" +
             ", language='" + language + "'" +

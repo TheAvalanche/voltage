@@ -11,9 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Service Implementation for managing BlogCategory.
- */
 @Service
 @Transactional
 public class BlogCategoryService {
@@ -30,12 +27,6 @@ public class BlogCategoryService {
         this.blogCategoryMapper = blogCategoryMapper;
     }
 
-    /**
-     * Save a blogCategory.
-     *
-     * @param blogCategoryDTO the entity to save
-     * @return the persisted entity
-     */
     public BlogCategoryDTO save(BlogCategoryDTO blogCategoryDTO) {
         log.debug("Request to save BlogCategory : {}", blogCategoryDTO);
         BlogCategory blogCategory = blogCategoryMapper.blogCategoryDTOToBlogCategory(blogCategoryDTO);
@@ -44,12 +35,6 @@ public class BlogCategoryService {
         return result;
     }
 
-    /**
-     *  Get all the blogCategories.
-     *
-     *  @param pageable the pagination information
-     *  @return the list of entities
-     */
     @Transactional(readOnly = true)
     public Page<BlogCategoryDTO> findAll(Pageable pageable) {
         log.debug("Request to get all BlogCategories");
@@ -57,12 +42,6 @@ public class BlogCategoryService {
         return result.map(blogCategory -> blogCategoryMapper.blogCategoryToBlogCategoryDTO(blogCategory));
     }
 
-    /**
-     *  Get one blogCategory by id.
-     *
-     *  @param id the id of the entity
-     *  @return the entity
-     */
     @Transactional(readOnly = true)
     public BlogCategoryDTO findOne(Long id) {
         log.debug("Request to get BlogCategory : {}", id);
@@ -71,11 +50,6 @@ public class BlogCategoryService {
         return blogCategoryDTO;
     }
 
-    /**
-     *  Delete the  blogCategory by id.
-     *
-     *  @param id the id of the entity
-     */
     public void delete(Long id) {
         log.debug("Request to delete BlogCategory : {}", id);
         blogCategoryRepository.delete(id);

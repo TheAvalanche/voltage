@@ -15,7 +15,7 @@ export class BlogService {
     create(blog: Blog): Observable<Blog> {
         let copy: Blog = Object.assign({}, blog);
         copy.created = this.dateUtils.toDate(blog.created);
-        copy.updated = this.dateUtils.toDate(blog.updated);
+
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -26,7 +26,6 @@ export class BlogService {
 
         copy.created = this.dateUtils.toDate(blog.created);
 
-        copy.updated = this.dateUtils.toDate(blog.updated);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -37,8 +36,6 @@ export class BlogService {
             let jsonResponse = res.json();
             jsonResponse.created = this.dateUtils
                 .convertDateTimeFromServer(jsonResponse.created);
-            jsonResponse.updated = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse.updated);
             return jsonResponse;
         });
     }
@@ -66,8 +63,6 @@ export class BlogService {
         for (let i = 0; i < jsonResponse.length; i++) {
             jsonResponse[i].created = this.dateUtils
                 .convertDateTimeFromServer(jsonResponse[i].created);
-            jsonResponse[i].updated = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse[i].updated);
         }
         res._body = jsonResponse;
         return res;
