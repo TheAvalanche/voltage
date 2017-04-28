@@ -29,10 +29,17 @@ public class BlogCategoryService {
 
     public BlogCategoryDTO save(BlogCategoryDTO blogCategoryDTO) {
         log.debug("Request to save BlogCategory : {}", blogCategoryDTO);
-        BlogCategory blogCategory = blogCategoryMapper.blogCategoryDTOToBlogCategory(blogCategoryDTO);
+        BlogCategory blogCategory;
+        if (blogCategoryDTO.getId() != null) {
+            blogCategory = blogCategoryRepository.getOne(blogCategoryDTO.getId());
+        } else {
+            blogCategory = new BlogCategory();
+        }
+        blogCategory.setTitle(blogCategoryDTO.getTitle());
+        blogCategory.setLanguage(blogCategoryDTO.getLanguage());
+
         blogCategory = blogCategoryRepository.save(blogCategory);
-        BlogCategoryDTO result = blogCategoryMapper.blogCategoryToBlogCategoryDTO(blogCategory);
-        return result;
+        return blogCategoryMapper.blogCategoryToBlogCategoryDTO(blogCategory);
     }
 
     @Transactional(readOnly = true)

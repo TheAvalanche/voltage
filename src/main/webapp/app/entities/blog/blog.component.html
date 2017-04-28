@@ -9,21 +9,6 @@
         </button>
     </h2>
     <jhi-alert></jhi-alert>
-    <div class="row">
-        <div class="col-sm-12 no-padding-right">
-            <form name="searchForm" class="form-inline">
-                <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'voltageApp.blog.home.search' | translate }}">
-                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
-                        <span class="fa fa-search"></span>
-                    </button>
-                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
-                        <span class="fa fa-trash-o"></span>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
     <br/>
     <div class="table-responsive" *ngIf="blogs">
         <table class="table table-striped">
@@ -31,8 +16,6 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="created"><span jhiTranslate="voltageApp.blog.created">Created</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="updated"><span jhiTranslate="voltageApp.blog.updated">Updated</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="version"><span jhiTranslate="voltageApp.blog.version">Version</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="title"><span jhiTranslate="voltageApp.blog.title">Title</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="body"><span jhiTranslate="voltageApp.blog.body">Body</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="language"><span jhiTranslate="voltageApp.blog.language">Language</span> <span class="fa fa-sort"></span></th>
@@ -43,8 +26,6 @@
             <tr *ngFor="let blog of blogs ;trackBy: trackId">
                 <td><a [routerLink]="['../blog', blog.id ]">{{blog.id}}</a></td>
                 <td>{{blog.created | date:'medium'}}</td>
-                <td>{{blog.updated | date:'medium'}}</td>
-                <td>{{blog.version}}</td>
                 <td>{{blog.title}}</td>
                 <td>{{blog.body}}</td>
                 <td jhiTranslate="{{'voltageApp.Language.' + blog.language}}">{{blog.language}}</td>

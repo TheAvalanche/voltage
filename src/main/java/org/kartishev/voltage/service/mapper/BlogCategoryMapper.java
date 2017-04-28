@@ -14,9 +14,4 @@ public interface BlogCategoryMapper {
 
     List<BlogCategoryDTO> blogCategoriesToBlogCategoryDTOs(List<BlogCategory> blogCategories);
 
-    BlogCategory blogCategoryDTOToBlogCategory(BlogCategoryDTO blogCategoryDTO);
-
-    List<BlogCategory> blogCategoryDTOsToBlogCategories(List<BlogCategoryDTO> blogCategoryDTOs);
-
-
 }

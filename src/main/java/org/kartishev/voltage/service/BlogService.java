@@ -1,6 +1,8 @@
 package org.kartishev.voltage.service;
 
 import org.kartishev.voltage.domain.Blog;
+import org.kartishev.voltage.domain.BlogCategory;
+import org.kartishev.voltage.repository.BlogCategoryRepository;
 import org.kartishev.voltage.repository.BlogRepository;
 import org.kartishev.voltage.service.dto.BlogDTO;
 import org.kartishev.voltage.service.mapper.BlogMapper;
@@ -11,6 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 @Transactional
 public class BlogService {
@@ -19,20 +24,36 @@ public class BlogService {
 
     private final BlogRepository blogRepository;
 
+    private final BlogCategoryRepository blogCategoryRepository;
+
     private final BlogMapper blogMapper;
 
 
-    public BlogService(BlogRepository blogRepository, BlogMapper blogMapper) {
+    public BlogService(BlogRepository blogRepository, BlogCategoryRepository blogCategoryRepository, BlogMapper blogMapper) {
         this.blogRepository = blogRepository;
+        this.blogCategoryRepository = blogCategoryRepository;
         this.blogMapper = blogMapper;
     }
 
     public BlogDTO save(BlogDTO blogDTO) {
         log.debug("Request to save Blog : {}", blogDTO);
-        Blog blog = blogMapper.blogDTOToBlog(blogDTO);
+        Blog blog;
+        if (blogDTO.getId() != null) {
+            blog = blogRepository.getOne(blogDTO.getId());
+        } else {
+            blog = new Blog();
+        }
+        blog.setTitle(blogDTO.getTitle());
+        blog.setBody(blogDTO.getBody());
+        blog.setLanguage(blogDTO.getLanguage());
+        Set<BlogCategory> blogCategories = new HashSet<>();
+        blogDTO.getBlogCategories().forEach(
+            bc -> blogCategories.add(blogCategoryRepository.findOne(bc.getId()))
+        );
+        blog.setBlogCategories(blogCategories);
+
         blog = blogRepository.save(blog);
-        BlogDTO result = blogMapper.blogToBlogDTO(blog);
-        return result;
+        return blogMapper.blogToBlogDTO(blog);
     }
 
     @Transactional(readOnly = true)

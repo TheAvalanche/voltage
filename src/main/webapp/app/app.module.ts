@@ -1,20 +1,20 @@
 import './vendor.ts';
 
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { Ng2Webstorage } from 'ng2-webstorage';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {Ng2Webstorage} from 'ng2-webstorage';
 
-import { VoltageSharedModule, UserRouteAccessService } from './shared';
-import { VoltageHomeModule } from './home/home.module';
-import { VoltageAdminModule } from './admin/admin.module';
-import { VoltageAccountModule } from './account/account.module';
-import { VoltageEntityModule } from './entities/entity.module';
-import { VoltagePublicBlogModule } from './public-blog/public-blog.module';
-import { VoltagePublicNewsDetailModule } from './home/public-news/public-news-detail.module';
+import {VoltageSharedModule, UserRouteAccessService} from './shared';
+import {VoltageHomeModule} from './home/home.module';
+import {VoltageAdminModule} from './admin/admin.module';
+import {VoltageAccountModule} from './account/account.module';
+import {VoltageEntityModule} from './entities/entity.module';
+import {VoltagePublicBlogModule} from './public-blog/public-blog.module';
+import {VoltagePublicNewsDetailModule} from './home/public-news/public-news-detail.module';
 
-import { LayoutRoutingModule } from './layouts';
-import { customHttpProvider } from './blocks/interceptor/http.provider';
-import { PaginationConfig } from './blocks/config/uib-pagination.config';
+import {LayoutRoutingModule} from './layouts';
+import {customHttpProvider} from './blocks/interceptor/http.provider';
+import {PaginationConfig} from './blocks/config/uib-pagination.config';
 
 import {
     JhiMainComponent,
@@ -25,7 +25,6 @@ import {
     ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
-
 
 
 @NgModule({
@@ -55,6 +54,7 @@ import {
         PaginationConfig,
         UserRouteAccessService
     ],
-    bootstrap: [ JhiMainComponent ]
+    bootstrap: [JhiMainComponent]
 })
-export class VoltageAppModule {}
+export class VoltageAppModule {
+}

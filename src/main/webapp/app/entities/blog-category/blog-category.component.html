@@ -9,30 +9,12 @@
         </button>
     </h2>
     <jhi-alert></jhi-alert>
-    <div class="row">
-        <div class="col-sm-12 no-padding-right">
-            <form name="searchForm" class="form-inline">
-                <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'voltageApp.blogCategory.home.search' | translate }}">
-                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
-                        <span class="fa fa-search"></span>
-                    </button>
-                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
-                        <span class="fa fa-trash-o"></span>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
     <br/>
     <div class="table-responsive" *ngIf="blogCategories">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="created"><span jhiTranslate="voltageApp.blogCategory.created">Created</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="updated"><span jhiTranslate="voltageApp.blogCategory.updated">Updated</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="version"><span jhiTranslate="voltageApp.blogCategory.version">Version</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="title"><span jhiTranslate="voltageApp.blogCategory.title">Title</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="language"><span jhiTranslate="voltageApp.blogCategory.language">Language</span> <span class="fa fa-sort"></span></th>
             <th></th>
@@ -41,9 +23,6 @@
             <tbody>
             <tr *ngFor="let blogCategory of blogCategories ;trackBy: trackId">
                 <td><a [routerLink]="['../blog-category', blogCategory.id ]">{{blogCategory.id}}</a></td>
-                <td>{{blogCategory.created | date:'medium'}}</td>
-                <td>{{blogCategory.updated | date:'medium'}}</td>
-                <td>{{blogCategory.version}}</td>
                 <td>{{blogCategory.title}}</td>
                 <td jhiTranslate="{{'voltageApp.Language.' + blogCategory.language}}">{{blogCategory.language}}</td>
                 <td class="text-right">

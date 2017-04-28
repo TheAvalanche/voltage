@@ -28,10 +28,20 @@ public class NewsService {
 
     public NewsDTO save(NewsDTO newsDTO) {
         log.debug("Request to save News : {}", newsDTO);
-        News news = newsMapper.newsDTOToNews(newsDTO);
+        News news;
+        if (newsDTO.getId() != null) {
+            news = newsRepository.getOne(newsDTO.getId());
+        } else {
+            news = new News();
+        }
+        news.setTitle(newsDTO.getTitle());
+        news.setBody(newsDTO.getBody());
+        news.setImage(newsDTO.getImage());
+        news.setImageContentType(newsDTO.getImageContentType());
+        news.setLanguage(newsDTO.getLanguage());
+
         news = newsRepository.save(news);
-        NewsDTO result = newsMapper.newsToNewsDTO(news);
-        return result;
+        return newsMapper.newsToNewsDTO(news);
     }
 
     @Transactional(readOnly = true)
