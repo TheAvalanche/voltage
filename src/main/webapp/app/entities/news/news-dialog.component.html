@@ -1,4 +1,4 @@
-<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+<form role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
         <h4 class="modal-title" id="myNewsLabel" jhiTranslate="voltageApp.news.home.createOrEditLabel">Create or edit a News</h4>
@@ -34,8 +34,12 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="voltageApp.news.body" for="field_body">Body</label>
-            <textarea class="form-control" name="body" id="field_body"
-                [(ngModel)]="news.body" required ></textarea>
+            <jhi-tiny
+                name="body"
+                [elementId]="'field_body'"
+                (onEditorKeyup)="updateBodyFunction($event)"
+                [content]="news.body" required>
+            </jhi-tiny>
             <div [hidden]="!(editForm.controls.body?.dirty && editForm.controls.body?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.body?.errors?.required" jhiTranslate="entity.validation.required">

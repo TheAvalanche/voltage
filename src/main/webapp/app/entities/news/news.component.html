@@ -28,7 +28,7 @@
                 <td><a [routerLink]="['../news', news.id ]">{{news.id}}</a></td>
                 <td>{{news.created | date:'medium'}}</td>
                 <td>{{news.title}}</td>
-                <td>{{news.body}}</td>
+                <td [innerHTML]="news.body"></td>
                 <td>
                     <a *ngIf="news.image" (click)="openFile(news.imageContentType, news.image)">
                         <img [src]="'data:' + news.imageContentType + ';base64,' + news.image" style="max-height: 30px;" alt="news image"/>

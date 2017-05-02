@@ -33,6 +33,11 @@ export class NewsDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
+
+    updateBodyFunction(update: any) {
+        this.news.body = update;
+    }
+
     byteSize(field) {
         return this.dataUtils.byteSize(field);
     }

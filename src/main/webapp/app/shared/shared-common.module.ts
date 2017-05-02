@@ -12,6 +12,7 @@ import {
     JhiAlertComponent,
     JhiAlertErrorComponent
 } from './';
+import {JhiTinyComponent} from './tinymce/tiny.component';
 
 
 export function alertServiceProvider(sanitizer: Sanitizer, translateService: TranslateService) {
@@ -27,7 +28,8 @@ export function alertServiceProvider(sanitizer: Sanitizer, translateService: Tra
     declarations: [
         FindLanguageFromKeyPipe,
         JhiAlertComponent,
-        JhiAlertErrorComponent
+        JhiAlertErrorComponent,
+        JhiTinyComponent
     ],
     providers: [
         JhiLanguageHelper,
@@ -42,7 +44,8 @@ export function alertServiceProvider(sanitizer: Sanitizer, translateService: Tra
         VoltageSharedLibsModule,
         FindLanguageFromKeyPipe,
         JhiAlertComponent,
-        JhiAlertErrorComponent
+        JhiAlertErrorComponent,
+        JhiTinyComponent
     ]
 })
 export class VoltageSharedCommonModule {}
