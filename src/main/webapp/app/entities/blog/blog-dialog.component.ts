@@ -39,6 +39,11 @@ export class BlogDialogComponent implements OnInit {
         this.blogCategoryService.query().subscribe(
             (res: Response) => { this.blogcategories = res.json(); }, (res: Response) => this.onError(res.json()));
     }
+
+    updateBodyFunction(update: any) {
+        this.blog.body = update;
+    }
+
     byteSize(field) {
         return this.dataUtils.byteSize(field);
     }

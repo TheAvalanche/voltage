@@ -28,6 +28,10 @@ public class News extends BaseEntity {
     @Column(name = "jhi_body", nullable = false)
     private String body;
 
+    @Size(min = 0, max = 4000)
+    @Column(name = "image_url", length = 4000)
+    private String imageUrl;
+
     @Lob
     @Column(name = "image")
     private byte[] image;
@@ -79,6 +83,14 @@ public class News extends BaseEntity {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public byte[] getImage() {

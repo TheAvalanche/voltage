@@ -130,12 +130,6 @@ currentAccount: any;
         return item.id;
     }
 
-
-
-    byteSize(field) {
-        return this.dataUtils.byteSize(field);
-    }
-
     openFile(contentType, field) {
         return this.dataUtils.openFile(contentType, field);
     }

@@ -5,7 +5,12 @@
                 <a>{{news.title}}</a>
             </header>
             <figure class="news-detail-figure">
-                <img [src]="'data:' + news.imageContentType + ';base64,' + news.image" alt="news image"/>
+                <a *ngIf="news.imageUrl">
+                    <img [src]="news.imageUrl" alt="news image"/>
+                </a>
+                <a *ngIf="!news.imageUrl && news.image">
+                    <img [src]="'data:' + news.imageContentType + ';base64,' + news.image" alt="news image"/>
+                </a>
             </figure>
             <p class="news-detail-content" [innerHTML]="news.body"></p>
             <p class="news-detail-comment">

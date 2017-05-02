@@ -21,6 +21,7 @@
             "version": "Version",
             "title": "Title",
             "body": "Body",
+            "imageUrl": "Image URL",
             "image": "Image",
             "language": "Language"
         }

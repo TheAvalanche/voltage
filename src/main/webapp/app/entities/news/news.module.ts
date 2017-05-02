@@ -7,7 +7,6 @@ import {
     NewsService,
     NewsPopupService,
     NewsComponent,
-    NewsDetailComponent,
     NewsDialogComponent,
     NewsPopupComponent,
     NewsDeletePopupComponent,
@@ -29,7 +28,6 @@ let ENTITY_STATES = [
     ],
     declarations: [
         NewsComponent,
-        NewsDetailComponent,
         NewsDialogComponent,
         NewsDeleteDialogComponent,
         NewsPopupComponent,

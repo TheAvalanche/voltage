@@ -30,16 +30,18 @@
                 <td>{{news.title}}</td>
                 <td [innerHTML]="news.body"></td>
                 <td>
-                    <a *ngIf="news.image" (click)="openFile(news.imageContentType, news.image)">
+                    <a *ngIf="news.imageUrl">
+                        <img [src]="news.imageUrl" style="max-height: 30px;" alt="news image"/>
+                    </a>
+                    <a *ngIf="!news.imageUrl && news.image">
                         <img [src]="'data:' + news.imageContentType + ';base64,' + news.image" style="max-height: 30px;" alt="news image"/>
                     </a>
-                    <span *ngIf="news.image">{{news.imageContentType}}, {{byteSize(news.image)}}</span>
                 </td>
                 <td jhiTranslate="{{'voltageApp.Language.' + news.language}}">{{news.language}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['../news', news.id ]"
+                                [routerLink]="['../public-news', news.id ]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
                             <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>

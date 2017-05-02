@@ -25,6 +25,9 @@ public class NewsDTO implements Serializable {
     @Lob
     private String body;
 
+    @Size(min = 0, max = 4000)
+    private String imageUrl;
+
     @Lob
     private byte[] image;
     private String imageContentType;
@@ -39,6 +42,7 @@ public class NewsDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public ZonedDateTime getCreated() {
         return created;
     }
@@ -54,6 +58,7 @@ public class NewsDTO implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
+
     public String getBody() {
         return body;
     }
@@ -61,6 +66,15 @@ public class NewsDTO implements Serializable {
     public void setBody(String body) {
         this.body = body;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public byte[] getImage() {
         return image;
     }
@@ -76,6 +90,7 @@ public class NewsDTO implements Serializable {
     public void setImageContentType(String imageContentType) {
         this.imageContentType = imageContentType;
     }
+
     public Language getLanguage() {
         return language;
     }
@@ -95,7 +110,9 @@ public class NewsDTO implements Serializable {
 
         NewsDTO newsDTO = (NewsDTO) o;
 
-        if ( ! Objects.equals(id, newsDTO.id)) { return false; }
+        if (!Objects.equals(id, newsDTO.id)) {
+            return false;
+        }
 
         return true;
     }

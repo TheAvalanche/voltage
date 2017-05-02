@@ -21,6 +21,7 @@
             "version": "Version",
             "title": "Заголовок",
             "body": "Содержание",
+            "imageUrl": "URL Картинки",
             "image": "Картинка",
             "language": "Язык"
         }

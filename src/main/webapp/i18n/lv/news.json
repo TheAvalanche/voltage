@@ -21,6 +21,7 @@
             "version": "Version",
             "title": "Virsraksts",
             "body": "Teksts",
+            "imageUrl": "Attēla URL",
             "image": "Attēls",
             "language": "Valoda"
         }

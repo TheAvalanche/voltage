@@ -34,8 +34,12 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="voltageApp.blog.body" for="field_body">Body</label>
-            <textarea class="form-control" name="body" id="field_body"
-                [(ngModel)]="blog.body" required ></textarea>
+            <jhi-tiny
+                name="body"
+                [elementId]="'field_body'"
+                (onEditorKeyup)="updateBodyFunction($event)"
+                [content]="blog.body" required>
+            </jhi-tiny>
             <div [hidden]="!(editForm.controls.body?.dirty && editForm.controls.body?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.body?.errors?.required" jhiTranslate="entity.validation.required">

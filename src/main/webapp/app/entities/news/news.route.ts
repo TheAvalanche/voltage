@@ -5,7 +5,6 @@ import { UserRouteAccessService } from '../../shared';
 import { PaginationUtil } from 'ng-jhipster';
 
 import { NewsComponent } from './news.component';
-import { NewsDetailComponent } from './news-detail.component';
 import { NewsPopupComponent } from './news-dialog.component';
 import { NewsDeletePopupComponent } from './news-delete-dialog.component';
 
@@ -34,14 +33,6 @@ export const newsRoute: Routes = [
     resolve: {
       'pagingParams': NewsResolvePagingParams
     },
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'voltageApp.news.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }, {
-    path: 'news/:id',
-    component: NewsDetailComponent,
     data: {
         authorities: ['ROLE_USER'],
         pageTitle: 'voltageApp.news.home.title'
