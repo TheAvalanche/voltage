@@ -28,10 +28,6 @@ public class NewsDTO implements Serializable {
     @Size(min = 0, max = 4000)
     private String imageUrl;
 
-    @Lob
-    private byte[] image;
-    private String imageContentType;
-
     @NotNull
     private Language language;
 
@@ -75,22 +71,6 @@ public class NewsDTO implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public String getImageContentType() {
-        return imageContentType;
-    }
-
-    public void setImageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
-    }
-
     public Language getLanguage() {
         return language;
     }
@@ -129,7 +109,6 @@ public class NewsDTO implements Serializable {
             ", created='" + created + "'" +
             ", title='" + title + "'" +
             ", body='" + body + "'" +
-            ", image='" + image + "'" +
             ", language='" + language + "'" +
             '}';
     }

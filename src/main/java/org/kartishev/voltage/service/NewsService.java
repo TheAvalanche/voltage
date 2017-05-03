@@ -32,8 +32,6 @@ public class NewsService {
         news.setTitle(newsDTO.getTitle());
         news.setBody(newsDTO.getBody());
         news.setImageUrl(newsDTO.getImageUrl());
-        news.setImage(newsDTO.getImage());
-        news.setImageContentType(newsDTO.getImageContentType());
         news.setLanguage(newsDTO.getLanguage());
 
         news = newsRepository.save(news);

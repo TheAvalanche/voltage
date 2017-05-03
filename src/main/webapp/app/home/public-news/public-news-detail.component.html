@@ -8,9 +8,6 @@
                 <a *ngIf="news.imageUrl">
                     <img [src]="news.imageUrl" alt="news image"/>
                 </a>
-                <a *ngIf="!news.imageUrl && news.image">
-                    <img [src]="'data:' + news.imageContentType + ';base64,' + news.image" alt="news image"/>
-                </a>
             </figure>
             <p class="news-detail-content" [innerHTML]="news.body"></p>
             <p class="news-detail-comment">

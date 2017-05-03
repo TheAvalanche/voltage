@@ -12,7 +12,6 @@ export class News {
         public title?: string,
         public body?: any,
         public imageUrl?: string,
-        public image?: any,
         public language?: Language,
     ) {
     }

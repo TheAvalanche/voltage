@@ -9,6 +9,7 @@
     <include file="classpath:config/liquibase/changelog/20170407060118_added_entity_Blog.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170407060938_added_entity_BlogCategory.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170503101800_added_column_image_url_News.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170503175700_drop_column_image_News.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="classpath:config/liquibase/changelog/20170407060118_added_entity_constraints_Blog.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->

@@ -115,8 +115,6 @@ public class NewsResourceIntTest {
             .version(DEFAULT_VERSION)
             .title(DEFAULT_TITLE)
             .body(DEFAULT_BODY)
-            .image(DEFAULT_IMAGE)
-            .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
             .language(DEFAULT_LANGUAGE);
         return news;
     }
@@ -147,8 +145,6 @@ public class NewsResourceIntTest {
         assertThat(testNews.getVersion()).isEqualTo(DEFAULT_VERSION);
         assertThat(testNews.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testNews.getBody()).isEqualTo(DEFAULT_BODY);
-        assertThat(testNews.getImage()).isEqualTo(DEFAULT_IMAGE);
-        assertThat(testNews.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
         assertThat(testNews.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
 
     }
@@ -295,8 +291,6 @@ public class NewsResourceIntTest {
             .version(UPDATED_VERSION)
             .title(UPDATED_TITLE)
             .body(UPDATED_BODY)
-            .image(UPDATED_IMAGE)
-            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
             .language(UPDATED_LANGUAGE);
         NewsDTO newsDTO = newsMapper.newsToNewsDTO(updatedNews);
 
@@ -314,8 +308,6 @@ public class NewsResourceIntTest {
         assertThat(testNews.getVersion()).isEqualTo(UPDATED_VERSION);
         assertThat(testNews.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testNews.getBody()).isEqualTo(UPDATED_BODY);
-        assertThat(testNews.getImage()).isEqualTo(UPDATED_IMAGE);
-        assertThat(testNews.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testNews.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
 
     }

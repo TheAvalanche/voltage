@@ -32,13 +32,6 @@ public class News extends BaseEntity {
     @Column(name = "image_url", length = 4000)
     private String imageUrl;
 
-    @Lob
-    @Column(name = "image")
-    private byte[] image;
-
-    @Column(name = "image_content_type")
-    private String imageContentType;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "language", nullable = false)
@@ -93,32 +86,6 @@ public class News extends BaseEntity {
         this.imageUrl = imageUrl;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public News image(byte[] image) {
-        this.image = image;
-        return this;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public String getImageContentType() {
-        return imageContentType;
-    }
-
-    public News imageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
-        return this;
-    }
-
-    public void setImageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
-    }
-
     public Language getLanguage() {
         return language;
     }
@@ -161,8 +128,6 @@ public class News extends BaseEntity {
             ", version='" + getVersion() + "'" +
             ", title='" + title + "'" +
             ", body='" + body + "'" +
-            ", image='" + image + "'" +
-            ", imageContentType='" + imageContentType + "'" +
             ", language='" + language + "'" +
             '}';
     }

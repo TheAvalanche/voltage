@@ -17,7 +17,6 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="created"><span jhiTranslate="voltageApp.news.created">Created</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="title"><span jhiTranslate="voltageApp.news.title">Title</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="body"><span jhiTranslate="voltageApp.news.body">Body</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="image"><span jhiTranslate="voltageApp.news.image">Image</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="language"><span jhiTranslate="voltageApp.news.language">Language</span> <span class="fa fa-sort"></span></th>
             <th></th>
@@ -28,13 +27,9 @@
                 <td><a [routerLink]="['../news', news.id ]">{{news.id}}</a></td>
                 <td>{{news.created | date:'medium'}}</td>
                 <td>{{news.title}}</td>
-                <td [innerHTML]="news.body"></td>
                 <td>
                     <a *ngIf="news.imageUrl">
                         <img [src]="news.imageUrl" style="max-height: 30px;" alt="news image"/>
-                    </a>
-                    <a *ngIf="!news.imageUrl && news.image">
-                        <img [src]="'data:' + news.imageContentType + ';base64,' + news.image" style="max-height: 30px;" alt="news image"/>
                     </a>
                 </td>
                 <td jhiTranslate="{{'voltageApp.Language.' + news.language}}">{{news.language}}</td>
