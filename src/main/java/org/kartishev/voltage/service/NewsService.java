@@ -1,6 +1,7 @@
 package org.kartishev.voltage.service;
 
 import org.kartishev.voltage.domain.News;
+import org.kartishev.voltage.domain.enumeration.Language;
 import org.kartishev.voltage.repository.NewsRepository;
 import org.kartishev.voltage.service.dto.NewsDTO;
 import org.kartishev.voltage.service.mapper.NewsMapper;
@@ -27,13 +28,7 @@ public class NewsService {
     }
 
     public NewsDTO save(NewsDTO newsDTO) {
-        log.debug("Request to save News : {}", newsDTO);
-        News news;
-        if (newsDTO.getId() != null) {
-            news = newsRepository.getOne(newsDTO.getId());
-        } else {
-            news = new News();
-        }
+        News news = findOrCreateNews(newsDTO);
         news.setTitle(newsDTO.getTitle());
         news.setBody(newsDTO.getBody());
         news.setImageUrl(newsDTO.getImageUrl());
@@ -45,23 +40,35 @@ public class NewsService {
         return newsMapper.newsToNewsDTO(news);
     }
 
+    private News findOrCreateNews(NewsDTO newsDTO) {
+        News news;
+        if (newsDTO.getId() != null) {
+            news = newsRepository.getOne(newsDTO.getId());
+        } else {
+            news = new News();
+        }
+        return news;
+    }
+
     @Transactional(readOnly = true)
     public Page<NewsDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all News");
         Page<News> result = newsRepository.findAll(pageable);
         return result.map(newsMapper::newsToNewsDTO);
     }
 
     @Transactional(readOnly = true)
+    public Page<NewsDTO> findAllByLanguage(Language language, Pageable pageable) {
+        Page<News> result = newsRepository.findAllByLanguage(language, pageable);
+        return result.map(newsMapper::newsToNewsDTO);
+    }
+
+    @Transactional(readOnly = true)
     public NewsDTO findOne(Long id) {
-        log.debug("Request to get News : {}", id);
         News news = newsRepository.findOne(id);
-        NewsDTO newsDTO = newsMapper.newsToNewsDTO(news);
-        return newsDTO;
+        return newsMapper.newsToNewsDTO(news);
     }
 
     public void delete(Long id) {
-        log.debug("Request to delete News : {}", id);
         newsRepository.delete(id);
     }
 }

@@ -3,6 +3,7 @@ package org.kartishev.voltage.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import io.swagger.annotations.ApiParam;
+import org.kartishev.voltage.domain.enumeration.Language;
 import org.kartishev.voltage.service.NewsService;
 import org.kartishev.voltage.service.dto.NewsDTO;
 import org.kartishev.voltage.web.rest.util.HeaderUtil;
@@ -22,9 +23,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * REST controller for managing News.
- */
 @RestController
 @RequestMapping("/api")
 public class NewsResource {
@@ -39,17 +37,10 @@ public class NewsResource {
         this.newsService = newsService;
     }
 
-    /**
-     * POST  /news : Create a new news.
-     *
-     * @param newsDTO the newsDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new newsDTO, or with status 400 (Bad Request) if the news has already an ID
-     * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
+
     @PostMapping("/news")
     @Timed
     public ResponseEntity<NewsDTO> createNews(@Valid @RequestBody NewsDTO newsDTO) throws URISyntaxException {
-        log.debug("REST request to save News : {}", newsDTO);
         if (newsDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new news cannot already have an ID")).body(null);
         }
@@ -59,19 +50,9 @@ public class NewsResource {
             .body(result);
     }
 
-    /**
-     * PUT  /news : Updates an existing news.
-     *
-     * @param newsDTO the newsDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated newsDTO,
-     * or with status 400 (Bad Request) if the newsDTO is not valid,
-     * or with status 500 (Internal Server Error) if the newsDTO couldnt be updated
-     * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
     @PutMapping("/news")
     @Timed
     public ResponseEntity<NewsDTO> updateNews(@Valid @RequestBody NewsDTO newsDTO) throws URISyntaxException {
-        log.debug("REST request to update News : {}", newsDTO);
         if (newsDTO.getId() == null) {
             return createNews(newsDTO);
         }
@@ -81,45 +62,32 @@ public class NewsResource {
             .body(result);
     }
 
-    /**
-     * GET  /news : get all the news.
-     *
-     * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of news in body
-     */
     @GetMapping("/news")
     @Timed
     public ResponseEntity<List<NewsDTO>> getAllNews(@ApiParam Pageable pageable) {
-        log.debug("REST request to get a page of News");
         Page<NewsDTO> page = newsService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/news");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    /**
-     * GET  /news/:id : get the "id" news.
-     *
-     * @param id the id of the newsDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the newsDTO, or with status 404 (Not Found)
-     */
+    @GetMapping("/news/lang/{lang}")
+    @Timed
+    public ResponseEntity<List<NewsDTO>> getAllNewsByLanguage(@PathVariable String lang, @ApiParam Pageable pageable) {
+        Page<NewsDTO> page = newsService.findAllByLanguage(Language.getByShortName(lang), pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/news");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
     @GetMapping("/news/{id}")
     @Timed
     public ResponseEntity<NewsDTO> getNews(@PathVariable Long id) {
-        log.debug("REST request to get News : {}", id);
         NewsDTO newsDTO = newsService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(newsDTO));
     }
 
-    /**
-     * DELETE  /news/:id : delete the "id" news.
-     *
-     * @param id the id of the newsDTO to delete
-     * @return the ResponseEntity with status 200 (OK)
-     */
     @DeleteMapping("/news/{id}")
     @Timed
     public ResponseEntity<Void> deleteNews(@PathVariable Long id) {
-        log.debug("REST request to delete News : {}", id);
         newsService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }

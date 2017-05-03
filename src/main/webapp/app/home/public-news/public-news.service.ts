@@ -1,33 +1,39 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {Http, Response, URLSearchParams, BaseRequestOptions} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
 
-import { DateUtils } from 'ng-jhipster';
+import {DateUtils, JhiLanguageService} from 'ng-jhipster';
 import {News} from '../../entities/news/news.model';
 
 @Injectable()
 export class PublicNewsService {
 
     private resourceUrl = 'public/api/news';
-    private resourceSearchUrl = 'api/_search/news';
+    private resourceLangUrl = 'public/api/news/lang';
 
-    constructor(private http: Http, private dateUtils: DateUtils) { }
+    constructor(private http: Http,
+                private dateUtils: DateUtils,
+                private languageService: JhiLanguageService) {
+    }
 
     find(id: number): Observable<News> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             let jsonResponse = res.json();
-            jsonResponse.created = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse.created);
+            jsonResponse.created = this.dateUtils.convertDateTimeFromServer(jsonResponse.created);
             return jsonResponse;
         });
     }
 
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
-        return this.http.get(this.resourceUrl, options)
-            .map((res: any) => this.convertResponse(res))
-            ;
+        return this.http.get(this.resourceUrl, options).map((res: any) => this.convertResponse(res));
+    }
+
+    queryByCurrentLanguage(req?: any): Observable<Response> {
+        let options = this.createRequestOption(req);
+        return this.http.get(this.resourceLangUrl + '/' + this.languageService.currentLang, options)
+            .map((res: any) => this.convertResponse(res));
     }
 
     private convertResponse(res: any): any {

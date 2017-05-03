@@ -22,9 +22,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * REST controller for managing Blog.
- */
 @RestController
 @RequestMapping("/api")
 public class BlogResource {
@@ -39,17 +36,9 @@ public class BlogResource {
         this.blogService = blogService;
     }
 
-    /**
-     * POST  /blogs : Create a new blog.
-     *
-     * @param blogDTO the blogDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new blogDTO, or with status 400 (Bad Request) if the blog has already an ID
-     * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
     @PostMapping("/blogs")
     @Timed
     public ResponseEntity<BlogDTO> createBlog(@Valid @RequestBody BlogDTO blogDTO) throws URISyntaxException {
-        log.debug("REST request to save Blog : {}", blogDTO);
         if (blogDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new blog cannot already have an ID")).body(null);
         }
@@ -59,19 +48,9 @@ public class BlogResource {
             .body(result);
     }
 
-    /**
-     * PUT  /blogs : Updates an existing blog.
-     *
-     * @param blogDTO the blogDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated blogDTO,
-     * or with status 400 (Bad Request) if the blogDTO is not valid,
-     * or with status 500 (Internal Server Error) if the blogDTO couldnt be updated
-     * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
     @PutMapping("/blogs")
     @Timed
     public ResponseEntity<BlogDTO> updateBlog(@Valid @RequestBody BlogDTO blogDTO) throws URISyntaxException {
-        log.debug("REST request to update Blog : {}", blogDTO);
         if (blogDTO.getId() == null) {
             return createBlog(blogDTO);
         }
@@ -81,45 +60,24 @@ public class BlogResource {
             .body(result);
     }
 
-    /**
-     * GET  /blogs : get all the blogs.
-     *
-     * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of blogs in body
-     */
     @GetMapping("/blogs")
     @Timed
     public ResponseEntity<List<BlogDTO>> getAllBlogs(@ApiParam Pageable pageable) {
-        log.debug("REST request to get a page of Blogs");
         Page<BlogDTO> page = blogService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/blogs");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    /**
-     * GET  /blogs/:id : get the "id" blog.
-     *
-     * @param id the id of the blogDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the blogDTO, or with status 404 (Not Found)
-     */
     @GetMapping("/blogs/{id}")
     @Timed
     public ResponseEntity<BlogDTO> getBlog(@PathVariable Long id) {
-        log.debug("REST request to get Blog : {}", id);
         BlogDTO blogDTO = blogService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(blogDTO));
     }
 
-    /**
-     * DELETE  /blogs/:id : delete the "id" blog.
-     *
-     * @param id the id of the blogDTO to delete
-     * @return the ResponseEntity with status 200 (OK)
-     */
     @DeleteMapping("/blogs/{id}")
     @Timed
     public ResponseEntity<Void> deleteBlog(@PathVariable Long id) {
-        log.debug("REST request to delete Blog : {}", id);
         blogService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }

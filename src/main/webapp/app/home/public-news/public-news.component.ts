@@ -5,6 +5,7 @@ import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { ParseLinks, JhiLanguageService, AlertService } from 'ng-jhipster';
 import {News} from '../../entities/news/news.model';
 import {PublicNewsService} from './public-news.service';
+import { TranslateService, TranslationChangeEvent, LangChangeEvent } from 'ng2-translate/ng2-translate';
 
 @Component({
     selector: 'jhi-public-news',
@@ -32,6 +33,7 @@ export class PublicNewsComponent implements OnInit {
         private newsService: PublicNewsService,
         private parseLinks: ParseLinks,
         private alertService: AlertService,
+        private translateService: TranslateService,
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.page = 1;
@@ -41,6 +43,14 @@ export class PublicNewsComponent implements OnInit {
 
     ngOnInit() {
         this.loadAll();
+
+        this.translateService.onTranslationChange.subscribe((event: TranslationChangeEvent) => {
+            this.loadAll();
+        });
+
+        this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
+            this.loadAll();
+        });
     }
 
     loadPage (page: number) {
@@ -51,7 +61,7 @@ export class PublicNewsComponent implements OnInit {
     }
 
     loadAll() {
-        this.newsService.query({
+        this.newsService.queryByCurrentLanguage({
             page: this.page - 1,
             size: this.itemsPerPage,
             sort: ['id,desc']}).subscribe(
