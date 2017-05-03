@@ -3,14 +3,17 @@ import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/ht
 import { Observable } from 'rxjs/Rx';
 
 import { News } from './news.model';
-import { DateUtils } from 'ng-jhipster';
+import {DateUtils, JhiLanguageService} from 'ng-jhipster';
 @Injectable()
 export class NewsService {
 
     private resourceUrl = 'api/news';
+    private resourceLangUrl = 'api/news/lang';
     private resourceSearchUrl = 'api/_search/news';
 
-    constructor(private http: Http, private dateUtils: DateUtils) { }
+    constructor(private http: Http,
+                private dateUtils: DateUtils,
+                private languageService: JhiLanguageService) { }
 
     create(news: News): Observable<News> {
         let copy: News = Object.assign({}, news);
@@ -46,15 +49,14 @@ export class NewsService {
         ;
     }
 
-    delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+    queryByCurrentLanguage(req?: any): Observable<Response> {
+        let options = this.createRequestOption(req);
+        return this.http.get(this.resourceLangUrl + '/' + this.languageService.currentLang, options)
+            .map((res: any) => this.convertResponse(res));
     }
 
-    search(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
-        return this.http.get(this.resourceSearchUrl, options)
-            .map((res: any) => this.convertResponse(res))
-        ;
+    delete(id: number): Observable<Response> {
+        return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
     private convertResponse(res: any): any {

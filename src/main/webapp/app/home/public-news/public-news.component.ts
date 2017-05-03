@@ -44,13 +44,7 @@ export class PublicNewsComponent implements OnInit {
     ngOnInit() {
         this.loadAll();
 
-        this.translateService.onTranslationChange.subscribe((event: TranslationChangeEvent) => {
-            this.loadAll();
-        });
-
-        this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-            this.loadAll();
-        });
+        this.registerLanguageChange();
     }
 
     loadPage (page: number) {
@@ -58,6 +52,16 @@ export class PublicNewsComponent implements OnInit {
             this.previousPage = page;
             this.loadAll();
         }
+    }
+
+    registerLanguageChange() {
+        this.translateService.onTranslationChange.subscribe((event: TranslationChangeEvent) => {
+            this.loadAll();
+        });
+
+        this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
+            this.loadAll();
+        });
     }
 
     loadAll() {

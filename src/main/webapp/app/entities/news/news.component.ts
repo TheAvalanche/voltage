@@ -8,6 +8,7 @@ import { News } from './news.model';
 import { NewsService } from './news.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { TranslateService, TranslationChangeEvent, LangChangeEvent } from 'ng2-translate/ng2-translate';
 
 @Component({
     selector: 'jhi-news',
@@ -20,7 +21,6 @@ currentAccount: any;
     error: any;
     success: any;
     eventSubscriber: Subscription;
-    currentSearch: string;
     routeData: any;
     links: any;
     totalItems: any;
@@ -42,7 +42,8 @@ currentAccount: any;
         private router: Router,
         private eventManager: EventManager,
         private paginationUtil: PaginationUtil,
-        private paginationConfig: PaginationConfig
+        private paginationConfig: PaginationConfig,
+        private translateService: TranslateService,
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -51,22 +52,11 @@ currentAccount: any;
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
         this.jhiLanguageService.setLocations(['news', 'language']);
     }
 
     loadAll() {
-        if (this.currentSearch) {
-            this.newsService.search({
-                query: this.currentSearch,
-                size: this.itemsPerPage,
-                sort: this.sort()}).subscribe(
-                    (res: Response) => this.onSuccess(res.json(), res.headers),
-                    (res: Response) => this.onError(res.json())
-                );
-            return;
-        }
-        this.newsService.query({
+        this.newsService.queryByCurrentLanguage({
             page: this.page - 1,
             size: this.itemsPerPage,
             sort: this.sort()}).subscribe(
@@ -85,7 +75,6 @@ currentAccount: any;
             {
                 page: this.page,
                 size: this.itemsPerPage,
-                search: this.currentSearch,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
@@ -94,32 +83,20 @@ currentAccount: any;
 
     clear() {
         this.page = 0;
-        this.currentSearch = '';
         this.router.navigate(['/news', {
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
         }]);
         this.loadAll();
     }
-    search (query) {
-        if (!query) {
-            return this.clear();
-        }
-        this.page = 0;
-        this.currentSearch = query;
-        this.router.navigate(['/news', {
-            search: this.currentSearch,
-            page: this.page,
-            sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-        }]);
-        this.loadAll();
-    }
+
     ngOnInit() {
         this.loadAll();
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
         this.registerChangeInNews();
+        this.registerLanguageChange();
     }
 
     ngOnDestroy() {
@@ -133,6 +110,17 @@ currentAccount: any;
     openFile(contentType, field) {
         return this.dataUtils.openFile(contentType, field);
     }
+
+    registerLanguageChange() {
+        this.translateService.onTranslationChange.subscribe((event: TranslationChangeEvent) => {
+            this.loadAll();
+        });
+
+        this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
+            this.loadAll();
+        });
+    }
+
     registerChangeInNews() {
         this.eventSubscriber = this.eventManager.subscribe('newsListModification', (response) => this.loadAll());
     }
