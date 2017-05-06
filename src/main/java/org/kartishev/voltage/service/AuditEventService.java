@@ -2,21 +2,16 @@ package org.kartishev.voltage.service;
 
 import org.kartishev.voltage.config.audit.AuditEventConverter;
 import org.kartishev.voltage.repository.PersistenceAuditEventRepository;
-import java.time.LocalDateTime;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
-/**
- * Service for managing audit events.
- * <p>
- * This is the default implementation to support SpringBoot Actuator AuditEventRepository
- * </p>
- */
+
 @Service
 @Transactional
 public class AuditEventService {

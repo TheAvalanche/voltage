@@ -2,12 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Response } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
+import { EventManager, ParseLinks, JhiLanguageService, AlertService } from 'ng-jhipster';
 
 import { BlogCategory } from './blog-category.model';
 import { BlogCategoryService } from './blog-category.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { TranslateService, LangChangeEvent } from 'ng2-translate/ng2-translate';
 
 @Component({
     selector: 'jhi-blog-category',
@@ -20,7 +20,7 @@ currentAccount: any;
     error: any;
     success: any;
     eventSubscriber: Subscription;
-    currentSearch: string;
+    languageChangeSubscriber: Subscription;
     routeData: any;
     links: any;
     totalItems: any;
@@ -40,8 +40,7 @@ currentAccount: any;
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private eventManager: EventManager,
-        private paginationUtil: PaginationUtil,
-        private paginationConfig: PaginationConfig
+        private translateService: TranslateService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -50,22 +49,11 @@ currentAccount: any;
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
         this.jhiLanguageService.setLocations(['blogCategory', 'language']);
     }
 
     loadAll() {
-        if (this.currentSearch) {
-            this.blogCategoryService.search({
-                query: this.currentSearch,
-                size: this.itemsPerPage,
-                sort: this.sort()}).subscribe(
-                    (res: Response) => this.onSuccess(res.json(), res.headers),
-                    (res: Response) => this.onError(res.json())
-                );
-            return;
-        }
-        this.blogCategoryService.query({
+        this.blogCategoryService.queryByCurrentLanguage({
             page: this.page - 1,
             size: this.itemsPerPage,
             sort: this.sort()}).subscribe(
@@ -84,7 +72,6 @@ currentAccount: any;
             {
                 page: this.page,
                 size: this.itemsPerPage,
-                search: this.currentSearch,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
@@ -93,43 +80,36 @@ currentAccount: any;
 
     clear() {
         this.page = 0;
-        this.currentSearch = '';
         this.router.navigate(['/blog-category', {
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
         }]);
         this.loadAll();
     }
-    search (query) {
-        if (!query) {
-            return this.clear();
-        }
-        this.page = 0;
-        this.currentSearch = query;
-        this.router.navigate(['/blog-category', {
-            search: this.currentSearch,
-            page: this.page,
-            sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-        }]);
-        this.loadAll();
-    }
+
     ngOnInit() {
         this.loadAll();
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
         this.registerChangeInBlogCategories();
+        this.registerLanguageChange();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
+        this.languageChangeSubscriber.unsubscribe();
     }
 
     trackId (index: number, item: BlogCategory) {
         return item.id;
     }
 
-
+    registerLanguageChange() {
+        this.languageChangeSubscriber = this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
+            this.loadAll();
+        });
+    }
 
     registerChangeInBlogCategories() {
         this.eventSubscriber = this.eventManager.subscribe('blogCategoryListModification', (response) => this.loadAll());

@@ -3,6 +3,7 @@ package org.kartishev.voltage.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import io.swagger.annotations.ApiParam;
+import org.kartishev.voltage.domain.enumeration.Language;
 import org.kartishev.voltage.service.BlogCategoryService;
 import org.kartishev.voltage.service.dto.BlogCategoryDTO;
 import org.kartishev.voltage.web.rest.util.HeaderUtil;
@@ -64,6 +65,14 @@ public class BlogCategoryResource {
     @Timed
     public ResponseEntity<List<BlogCategoryDTO>> getAllBlogCategories(@ApiParam Pageable pageable) {
         Page<BlogCategoryDTO> page = blogCategoryService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/blog-categories");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/blog-categories/lang/{lang}")
+    @Timed
+    public ResponseEntity<List<BlogCategoryDTO>> getAllBlogCategoriesByLanguage(@PathVariable String lang, @ApiParam Pageable pageable) {
+        Page<BlogCategoryDTO> page = blogCategoryService.findAllByLanguage(Language.getByShortName(lang), pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/blog-categories");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

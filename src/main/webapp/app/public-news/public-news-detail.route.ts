@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-import { UserRouteAccessService } from '../../shared';
+import { UserRouteAccessService } from '../shared';
 import { PublicNewsDetailComponent } from './';
 
 export const PUBLIC_NEWS_DETAIL_ROUTE: Route = {

@@ -2,7 +2,7 @@
     <h2 jhiTranslate="voltageApp.news.home.title">News</h2>
 </div>
 <div class="news-section-content">
-    <article *ngFor="let news of news ;trackBy: trackId" class="news-article" [routerLink]="['../public-news', news.id ]">
+    <article *ngFor="let news of news ;trackBy: trackId" class="news-article" [routerLink]="['/public-news', news.id ]">
         <header class="news-header">
             <a>{{news.title}}</a>
         </header>

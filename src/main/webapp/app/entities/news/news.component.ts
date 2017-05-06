@@ -2,13 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Response } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService, DataUtils } from 'ng-jhipster';
+import { EventManager, ParseLinks, JhiLanguageService, AlertService, DataUtils } from 'ng-jhipster';
 
 import { News } from './news.model';
 import { NewsService } from './news.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
-import { TranslateService, TranslationChangeEvent, LangChangeEvent } from 'ng2-translate/ng2-translate';
+import { TranslateService, LangChangeEvent } from 'ng2-translate/ng2-translate';
 
 @Component({
     selector: 'jhi-news',
@@ -21,6 +20,7 @@ currentAccount: any;
     error: any;
     success: any;
     eventSubscriber: Subscription;
+    languageChangeSubscriber: Subscription;
     routeData: any;
     links: any;
     totalItems: any;
@@ -41,9 +41,7 @@ currentAccount: any;
         private dataUtils: DataUtils,
         private router: Router,
         private eventManager: EventManager,
-        private paginationUtil: PaginationUtil,
-        private paginationConfig: PaginationConfig,
-        private translateService: TranslateService,
+        private translateService: TranslateService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -101,6 +99,7 @@ currentAccount: any;
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
+        this.languageChangeSubscriber.unsubscribe();
     }
 
     trackId (index: number, item: News) {
@@ -112,11 +111,7 @@ currentAccount: any;
     }
 
     registerLanguageChange() {
-        this.translateService.onTranslationChange.subscribe((event: TranslationChangeEvent) => {
-            this.loadAll();
-        });
-
-        this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
+        this.languageChangeSubscriber = this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
             this.loadAll();
         });
     }

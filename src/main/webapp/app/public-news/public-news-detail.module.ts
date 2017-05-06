@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { VoltageSharedModule } from '../../shared';
+import { VoltageSharedModule } from '../shared';
 
 import { PUBLIC_NEWS_DETAIL_ROUTE, PublicNewsDetailComponent} from './';
 import {VoltagePublicNewsModule} from './public-news.module';

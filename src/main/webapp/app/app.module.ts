@@ -10,7 +10,7 @@ import {VoltageAdminModule} from './admin/admin.module';
 import {VoltageAccountModule} from './account/account.module';
 import {VoltageEntityModule} from './entities/entity.module';
 import {VoltagePublicBlogModule} from './public-blog/public-blog.module';
-import {VoltagePublicNewsDetailModule} from './home/public-news/public-news-detail.module';
+import {VoltagePublicNewsDetailModule} from './public-news/public-news-detail.module';
 
 import {LayoutRoutingModule} from './layouts';
 import {customHttpProvider} from './blocks/interceptor/http.provider';
@@ -25,6 +25,7 @@ import {
     ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
+import {VoltagePublicNewsModule} from './public-news/public-news.module';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {
         VoltageAccountModule,
         VoltageEntityModule,
         VoltagePublicBlogModule,
+        VoltagePublicNewsModule,
         VoltagePublicNewsDetailModule
     ],
     declarations: [

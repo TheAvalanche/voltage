@@ -9,7 +9,6 @@ export class NewsService {
 
     private resourceUrl = 'api/news';
     private resourceLangUrl = 'api/news/lang';
-    private resourceSearchUrl = 'api/_search/news';
 
     constructor(private http: Http,
                 private dateUtils: DateUtils,
@@ -45,8 +44,7 @@ export class NewsService {
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-            .map((res: any) => this.convertResponse(res))
-        ;
+            .map((res: any) => this.convertResponse(res));
     }
 
     queryByCurrentLanguage(req?: any): Observable<Response> {

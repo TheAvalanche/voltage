@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JhiLanguageService } from 'ng-jhipster';
 
-import {News} from '../../entities/news/news.model';
+import {News} from '../entities/news/news.model';
 import {PublicNewsService} from './public-news.service';
 
 @Component({

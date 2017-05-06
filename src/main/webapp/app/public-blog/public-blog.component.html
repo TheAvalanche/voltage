@@ -1,1 +1,7 @@
-Test
+<div *ngFor="let blogCategory of blogCategories ;trackBy: trackId">
+    <a [routerLink]="['/public-blog/category/', blogCategory.id ]">{{blogCategory.title}}</a>
+</div>
+
+<div *ngFor="let blog of blogs ;trackBy: trackId">
+    {{blog.title}}
+</div>

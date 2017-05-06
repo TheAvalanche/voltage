@@ -1,6 +1,7 @@
 package org.kartishev.voltage.service;
 
 import org.kartishev.voltage.domain.BlogCategory;
+import org.kartishev.voltage.domain.enumeration.Language;
 import org.kartishev.voltage.repository.BlogCategoryRepository;
 import org.kartishev.voltage.service.dto.BlogCategoryDTO;
 import org.kartishev.voltage.service.mapper.BlogCategoryMapper;
@@ -10,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -28,13 +31,7 @@ public class BlogCategoryService {
     }
 
     public BlogCategoryDTO save(BlogCategoryDTO blogCategoryDTO) {
-        log.debug("Request to save BlogCategory : {}", blogCategoryDTO);
-        BlogCategory blogCategory;
-        if (blogCategoryDTO.getId() != null) {
-            blogCategory = blogCategoryRepository.getOne(blogCategoryDTO.getId());
-        } else {
-            blogCategory = new BlogCategory();
-        }
+        BlogCategory blogCategory = findOrCreateBlogCategory(blogCategoryDTO);
         blogCategory.setTitle(blogCategoryDTO.getTitle());
         blogCategory.setLanguage(blogCategoryDTO.getLanguage());
 
@@ -42,23 +39,47 @@ public class BlogCategoryService {
         return blogCategoryMapper.blogCategoryToBlogCategoryDTO(blogCategory);
     }
 
+    private BlogCategory findOrCreateBlogCategory(BlogCategoryDTO blogCategoryDTO) {
+        BlogCategory blogCategory;
+        if (blogCategoryDTO.getId() != null) {
+            blogCategory = blogCategoryRepository.getOne(blogCategoryDTO.getId());
+        } else {
+            blogCategory = new BlogCategory();
+        }
+        return blogCategory;
+    }
+
+    @Transactional(readOnly = true)
+    public List<BlogCategoryDTO> findAll() {
+        List<BlogCategory> result = blogCategoryRepository.findAll();
+        return blogCategoryMapper.blogCategoriesToBlogCategoryDTOs(result);
+    }
+
     @Transactional(readOnly = true)
     public Page<BlogCategoryDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all BlogCategories");
         Page<BlogCategory> result = blogCategoryRepository.findAll(pageable);
-        return result.map(blogCategory -> blogCategoryMapper.blogCategoryToBlogCategoryDTO(blogCategory));
+        return result.map(blogCategoryMapper::blogCategoryToBlogCategoryDTO);
+    }
+
+    @Transactional(readOnly = true)
+    public List<BlogCategoryDTO> findAllByLanguage(Language language) {
+        List<BlogCategory> result = blogCategoryRepository.findAllByLanguage(language);
+        return blogCategoryMapper.blogCategoriesToBlogCategoryDTOs(result);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<BlogCategoryDTO> findAllByLanguage(Language language, Pageable pageable) {
+        Page<BlogCategory> result = blogCategoryRepository.findAllByLanguage(language, pageable);
+        return result.map(blogCategoryMapper::blogCategoryToBlogCategoryDTO);
     }
 
     @Transactional(readOnly = true)
     public BlogCategoryDTO findOne(Long id) {
-        log.debug("Request to get BlogCategory : {}", id);
         BlogCategory blogCategory = blogCategoryRepository.findOne(id);
-        BlogCategoryDTO blogCategoryDTO = blogCategoryMapper.blogCategoryToBlogCategoryDTO(blogCategory);
-        return blogCategoryDTO;
+        return blogCategoryMapper.blogCategoryToBlogCategoryDTO(blogCategory);
     }
 
     public void delete(Long id) {
-        log.debug("Request to delete BlogCategory : {}", id);
         blogCategoryRepository.delete(id);
     }
 }

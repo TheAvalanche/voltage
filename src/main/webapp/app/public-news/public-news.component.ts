@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Response} from '@angular/http';
 
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
+import { ITEMS_PER_PAGE, Principal } from '../shared';
 import { ParseLinks, JhiLanguageService, AlertService } from 'ng-jhipster';
-import {News} from '../../entities/news/news.model';
+import {News} from '../entities/news/news.model';
 import {PublicNewsService} from './public-news.service';
-import { TranslateService, TranslationChangeEvent, LangChangeEvent } from 'ng2-translate/ng2-translate';
+import { TranslateService, LangChangeEvent } from 'ng2-translate/ng2-translate';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'jhi-public-news',
@@ -14,7 +15,7 @@ import { TranslateService, TranslationChangeEvent, LangChangeEvent } from 'ng2-t
         'public-news.scss'
     ]
 })
-export class PublicNewsComponent implements OnInit {
+export class PublicNewsComponent implements OnInit, OnDestroy {
 
     news: News[];
     error: any;
@@ -27,6 +28,7 @@ export class PublicNewsComponent implements OnInit {
     previousPage: any;
     predicate: any;
     reverse: any;
+    languageChangeSubscriber: Subscription;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
@@ -55,11 +57,7 @@ export class PublicNewsComponent implements OnInit {
     }
 
     registerLanguageChange() {
-        this.translateService.onTranslationChange.subscribe((event: TranslationChangeEvent) => {
-            this.loadAll();
-        });
-
-        this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
+        this.languageChangeSubscriber = this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
             this.loadAll();
         });
     }
@@ -72,6 +70,10 @@ export class PublicNewsComponent implements OnInit {
             (res: Response) => this.onSuccess(res.json(), res.headers),
             (res: Response) => this.onError(res.json())
         );
+    }
+
+    ngOnDestroy() {
+        this.languageChangeSubscriber.unsubscribe();
     }
 
     private onSuccess (data, headers) {

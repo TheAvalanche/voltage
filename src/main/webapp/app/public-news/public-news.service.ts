@@ -1,61 +1,39 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {Http, Response, URLSearchParams, BaseRequestOptions} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import { Blog } from './blog.model';
+
 import {DateUtils, JhiLanguageService} from 'ng-jhipster';
-@Injectable()
-export class BlogService {
+import {News} from '../entities/news/news.model';
 
-    private resourceUrl = 'api/blogs';
-    private resourceLangUrl = 'api/blogs/lang';
+@Injectable()
+export class PublicNewsService {
+
+    private resourceUrl = 'public/api/news';
+    private resourceLangUrl = 'public/api/news/lang';
 
     constructor(private http: Http,
                 private dateUtils: DateUtils,
-                private languageService: JhiLanguageService) { }
-
-    create(blog: Blog): Observable<Blog> {
-        let copy: Blog = Object.assign({}, blog);
-        copy.created = this.dateUtils.toDate(blog.created);
-
-        return this.http.post(this.resourceUrl, copy).map((res: Response) => {
-            return res.json();
-        });
+                private languageService: JhiLanguageService) {
     }
 
-    update(blog: Blog): Observable<Blog> {
-        let copy: Blog = Object.assign({}, blog);
-
-        copy.created = this.dateUtils.toDate(blog.created);
-
-        return this.http.put(this.resourceUrl, copy).map((res: Response) => {
-            return res.json();
-        });
-    }
-
-    find(id: number): Observable<Blog> {
+    find(id: number): Observable<News> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             let jsonResponse = res.json();
-            jsonResponse.created = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse.created);
+            jsonResponse.created = this.dateUtils.convertDateTimeFromServer(jsonResponse.created);
             return jsonResponse;
         });
     }
 
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
-        return this.http.get(this.resourceUrl, options)
-            .map((res: any) => this.convertResponse(res));
+        return this.http.get(this.resourceUrl, options).map((res: any) => this.convertResponse(res));
     }
 
     queryByCurrentLanguage(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceLangUrl + '/' + this.languageService.currentLang, options)
             .map((res: any) => this.convertResponse(res));
-    }
-
-    delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
     private convertResponse(res: any): any {

@@ -36,7 +36,7 @@ export class BlogDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.blogCategoryService.query().subscribe(
+        this.blogCategoryService.queryByCurrentLanguage().subscribe(
             (res: Response) => { this.blogcategories = res.json(); }, (res: Response) => this.onError(res.json()));
     }
 

@@ -3,14 +3,16 @@ import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/ht
 import { Observable } from 'rxjs/Rx';
 
 import { BlogCategory } from './blog-category.model';
-import { DateUtils } from 'ng-jhipster';
+import {DateUtils, JhiLanguageService} from 'ng-jhipster';
 @Injectable()
 export class BlogCategoryService {
 
     private resourceUrl = 'api/blog-categories';
-    private resourceSearchUrl = 'api/_search/blog-categories';
+    private resourceLangUrl = 'api/blog-categories/lang';
 
-    constructor(private http: Http, private dateUtils: DateUtils) { }
+    constructor(private http: Http,
+                private dateUtils: DateUtils,
+                private languageService: JhiLanguageService) { }
 
     create(blogCategory: BlogCategory): Observable<BlogCategory> {
         let copy: BlogCategory = Object.assign({}, blogCategory);
@@ -30,8 +32,7 @@ export class BlogCategoryService {
 
     find(id: number): Observable<BlogCategory> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            let jsonResponse = res.json();
-            return jsonResponse;
+            return res.json();
         });
     }
 
@@ -42,15 +43,14 @@ export class BlogCategoryService {
         ;
     }
 
-    delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+    queryByCurrentLanguage(req?: any): Observable<Response> {
+        let options = this.createRequestOption(req);
+        return this.http.get(this.resourceLangUrl + '/' + this.languageService.currentLang, options)
+            .map((res: any) => this.convertResponse(res));
     }
 
-    search(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
-        return this.http.get(this.resourceSearchUrl, options)
-            .map((res: any) => this.convertResponse(res))
-        ;
+    delete(id: number): Observable<Response> {
+        return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
     private convertResponse(res: any): any {

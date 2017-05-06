@@ -2,6 +2,7 @@ package org.kartishev.voltage.service;
 
 import org.kartishev.voltage.domain.Blog;
 import org.kartishev.voltage.domain.BlogCategory;
+import org.kartishev.voltage.domain.enumeration.Language;
 import org.kartishev.voltage.repository.BlogCategoryRepository;
 import org.kartishev.voltage.repository.BlogRepository;
 import org.kartishev.voltage.service.dto.BlogDTO;
@@ -36,13 +37,7 @@ public class BlogService {
     }
 
     public BlogDTO save(BlogDTO blogDTO) {
-        log.debug("Request to save Blog : {}", blogDTO);
-        Blog blog;
-        if (blogDTO.getId() != null) {
-            blog = blogRepository.getOne(blogDTO.getId());
-        } else {
-            blog = new Blog();
-        }
+        Blog blog = findOrCreateBlog(blogDTO);
         blog.setTitle(blogDTO.getTitle());
         blog.setBody(blogDTO.getBody());
         blog.setLanguage(blogDTO.getLanguage());
@@ -56,23 +51,42 @@ public class BlogService {
         return blogMapper.blogToBlogDTO(blog);
     }
 
+    private Blog findOrCreateBlog(BlogDTO blogDTO) {
+        Blog blog;
+        if (blogDTO.getId() != null) {
+            blog = blogRepository.getOne(blogDTO.getId());
+        } else {
+            blog = new Blog();
+        }
+        return blog;
+    }
+
     @Transactional(readOnly = true)
     public Page<BlogDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all Blogs");
         Page<Blog> result = blogRepository.findAll(pageable);
-        return result.map(blog -> blogMapper.blogToBlogDTO(blog));
+        return result.map(blogMapper::blogToBlogDTO);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<BlogDTO> findAllByLanguage(Language language, Pageable pageable) {
+        Page<Blog> result = blogRepository.findAllByLanguage(language, pageable);
+        return result.map(blogMapper::blogToBlogDTO);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<BlogDTO> findAllByBlogCategories(Long blogCategoryId, Pageable pageable) {
+        BlogCategory blogCategory = blogCategoryRepository.findOne(blogCategoryId);
+        Page<Blog> result = blogRepository.findAllByBlogCategories(blogCategory, pageable);
+        return result.map(blogMapper::blogToBlogDTO);
     }
 
     @Transactional(readOnly = true)
     public BlogDTO findOne(Long id) {
-        log.debug("Request to get Blog : {}", id);
         Blog blog = blogRepository.findOneWithEagerRelationships(id);
-        BlogDTO blogDTO = blogMapper.blogToBlogDTO(blog);
-        return blogDTO;
+        return blogMapper.blogToBlogDTO(blog);
     }
 
     public void delete(Long id) {
-        log.debug("Request to delete Blog : {}", id);
         blogRepository.delete(id);
     }
 

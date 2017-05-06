@@ -1,38 +1,45 @@
-import {Injectable} from '@angular/core';
-import {Http, Response, URLSearchParams, BaseRequestOptions} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-
+import { Injectable } from '@angular/core';
+import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 
 import {DateUtils, JhiLanguageService} from 'ng-jhipster';
-import {News} from '../../entities/news/news.model';
+import {Blog} from '../entities/blog/blog.model';
 
 @Injectable()
-export class PublicNewsService {
+export class PublicBlogService {
 
-    private resourceUrl = 'public/api/news';
-    private resourceLangUrl = 'public/api/news/lang';
+    private resourceUrl = 'public/api/blogs';
+    private resourceLangUrl = 'public/api/blogs/lang';
+    private resourceCategoryUrl = 'public/api/blogs/category';
 
     constructor(private http: Http,
                 private dateUtils: DateUtils,
-                private languageService: JhiLanguageService) {
-    }
+                private languageService: JhiLanguageService) { }
 
-    find(id: number): Observable<News> {
+    find(id: number): Observable<Blog> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             let jsonResponse = res.json();
-            jsonResponse.created = this.dateUtils.convertDateTimeFromServer(jsonResponse.created);
+            jsonResponse.created = this.dateUtils
+                .convertDateTimeFromServer(jsonResponse.created);
             return jsonResponse;
         });
     }
 
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
-        return this.http.get(this.resourceUrl, options).map((res: any) => this.convertResponse(res));
+        return this.http.get(this.resourceUrl, options)
+            .map((res: any) => this.convertResponse(res));
     }
 
     queryByCurrentLanguage(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceLangUrl + '/' + this.languageService.currentLang, options)
+            .map((res: any) => this.convertResponse(res));
+    }
+
+    queryByCategory(id: number, req?: any): Observable<Response> {
+        let options = this.createRequestOption(req);
+        return this.http.get(this.resourceCategoryUrl + '/' + id, options)
             .map((res: any) => this.convertResponse(res));
     }
 
