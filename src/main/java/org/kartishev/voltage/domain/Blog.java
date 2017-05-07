@@ -30,6 +30,10 @@ public class Blog extends BaseEntity {
     @Column(name = "jhi_body", nullable = false)
     private String body;
 
+    @Size(min = 0, max = 4000)
+    @Column(name = "image_url", length = 4000)
+    private String imageUrl;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "language", nullable = false)
@@ -81,6 +85,19 @@ public class Blog extends BaseEntity {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public Blog imageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Language getLanguage() {

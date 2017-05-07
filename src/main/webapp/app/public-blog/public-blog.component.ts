@@ -6,7 +6,6 @@ import {Account, LoginModalService, Principal} from '../shared';
 import {PublicBlogCategoryService} from './public-blog-category.service';
 import {Response} from '@angular/http';
 import {BlogCategory} from '../entities/blog-category/blog-category.model';
-import {TranslateService, LangChangeEvent} from 'ng2-translate/ng2-translate';
 import {Subscription} from 'rxjs';
 import {Blog} from '../entities/blog/blog.model';
 import {PublicBlogService} from './public-blog.service';
@@ -33,13 +32,11 @@ export class PublicBlogComponent implements OnInit, OnDestroy {
     blogs: Blog[];
     blogCategories: BlogCategory[];
     subscription: Subscription;
-    languageChangeSubscriber: Subscription;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private parseLinks: ParseLinks,
                 private route: ActivatedRoute,
                 private alertService: AlertService,
-                private translateService: TranslateService,
                 private blogService: PublicBlogService,
                 private blogCategoryService: PublicBlogCategoryService) {
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -50,15 +47,9 @@ export class PublicBlogComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loadAllCategories();
-        this.loadAllBlogs();
 
         this.subscription = this.route.params.subscribe(params => {
             this.loadAllBlogs(params['category']);
-        });
-
-        this.languageChangeSubscriber = this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-            this.loadAllCategories();
-            this.loadAllBlogs();
         });
     }
 
@@ -71,7 +62,6 @@ export class PublicBlogComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
-        this.languageChangeSubscriber.unsubscribe();
     }
 
     loadAllBlogs(id?: number) {

@@ -21,6 +21,7 @@
             "version": "Version",
             "title": "Заглавие",
             "body": "Содержание",
+            "imageUrl": "URL Картинки",
             "language": "Язык",
             "blogCategory": "Категория"
         }

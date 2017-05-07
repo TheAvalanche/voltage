@@ -26,6 +26,9 @@ public class BlogDTO implements Serializable {
     @Lob
     private String body;
 
+    @Size(min = 0, max = 4000)
+    private String imageUrl;
+
     @NotNull
     private Language language;
 
@@ -38,6 +41,7 @@ public class BlogDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public ZonedDateTime getCreated() {
         return created;
     }
@@ -53,6 +57,7 @@ public class BlogDTO implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
+
     public String getBody() {
         return body;
     }
@@ -60,6 +65,15 @@ public class BlogDTO implements Serializable {
     public void setBody(String body) {
         this.body = body;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public Language getLanguage() {
         return language;
     }
@@ -87,7 +101,9 @@ public class BlogDTO implements Serializable {
 
         BlogDTO blogDTO = (BlogDTO) o;
 
-        if ( ! Objects.equals(id, blogDTO.id)) { return false; }
+        if (!Objects.equals(id, blogDTO.id)) {
+            return false;
+        }
 
         return true;
     }

@@ -35,6 +35,7 @@ public class BlogCategoryDTO implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
+
     public Language getLanguage() {
         return language;
     }
@@ -54,7 +55,9 @@ public class BlogCategoryDTO implements Serializable {
 
         BlogCategoryDTO blogCategoryDTO = (BlogCategoryDTO) o;
 
-        if ( ! Objects.equals(id, blogCategoryDTO.id)) { return false; }
+        if (!Objects.equals(id, blogCategoryDTO.id)) {
+            return false;
+        }
 
         return true;
     }

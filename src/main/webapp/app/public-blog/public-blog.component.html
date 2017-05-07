@@ -1,7 +1,27 @@
-<div *ngFor="let blogCategory of blogCategories ;trackBy: trackId">
-    <a [routerLink]="['/public-blog/category/', blogCategory.id ]">{{blogCategory.title}}</a>
+<div class="row">
+    <div class="col-md-6 offset-md-2 col-sm-12 col-xs-12">
+        <div class="blogs-section-content">
+            <article *ngFor="let blog of blogs ;trackBy: trackId" class="blog-article" [routerLink]="['/public-blog', blog.id ]">
+                <header class="blog-header">
+                    <a>{{blog.title}}</a>
+                </header>
+                <figure class="blog-figure">
+                    <a *ngIf="blog.imageUrl">
+                        <img [src]="blog.imageUrl" alt="blog image"/>
+                    </a>
+                </figure>
+            </article>
+            <div *ngIf="blogs && blogs.length">
+                <div class="row justify-content-center blogs-pagination">
+                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-12 col-xs-12">
+        <div *ngFor="let blogCategory of blogCategories ;trackBy: trackId">
+            <a [routerLink]="['/public-blog/category/', blogCategory.id ]">{{blogCategory.title}}</a>
+        </div>
+    </div>
 </div>
 
-<div *ngFor="let blog of blogs ;trackBy: trackId">
-    {{blog.title}}
-</div>

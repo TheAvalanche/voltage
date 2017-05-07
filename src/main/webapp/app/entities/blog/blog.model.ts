@@ -11,6 +11,7 @@ export class Blog {
         public created?: any,
         public title?: string,
         public body?: any,
+        public imageUrl?: string,
         public language?: Language,
         public blogCategoryId?: number,
     ) {

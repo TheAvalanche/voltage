@@ -7,7 +7,6 @@ import { EventManager, ParseLinks, JhiLanguageService, AlertService, DataUtils }
 import { Blog } from './blog.model';
 import { BlogService } from './blog.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import { TranslateService, LangChangeEvent } from 'ng2-translate/ng2-translate';
 
 @Component({
     selector: 'jhi-blog',
@@ -20,7 +19,6 @@ currentAccount: any;
     error: any;
     success: any;
     eventSubscriber: Subscription;
-    languageChangeSubscriber: Subscription;
     routeData: any;
     links: any;
     totalItems: any;
@@ -41,7 +39,6 @@ currentAccount: any;
         private dataUtils: DataUtils,
         private router: Router,
         private eventManager: EventManager,
-        private translateService: TranslateService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -96,12 +93,10 @@ currentAccount: any;
             this.currentAccount = account;
         });
         this.registerChangeInBlogs();
-        this.registerLanguageChange();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
-        this.languageChangeSubscriber.unsubscribe();
     }
 
     trackId (index: number, item: Blog) {
@@ -116,12 +111,6 @@ currentAccount: any;
 
     openFile(contentType, field) {
         return this.dataUtils.openFile(contentType, field);
-    }
-
-    registerLanguageChange() {
-        this.languageChangeSubscriber = this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-            this.loadAll();
-        });
     }
 
     registerChangeInBlogs() {

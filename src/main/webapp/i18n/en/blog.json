@@ -21,6 +21,7 @@
             "version": "Version",
             "title": "Title",
             "body": "Body",
+            "imageUrl": "Image URL",
             "language": "Language",
             "blogCategory": "Blog Category"
         }

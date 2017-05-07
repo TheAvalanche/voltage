@@ -40,6 +40,7 @@ public class BlogService {
         Blog blog = findOrCreateBlog(blogDTO);
         blog.setTitle(blogDTO.getTitle());
         blog.setBody(blogDTO.getBody());
+        blog.setImageUrl(blogDTO.getImageUrl());
         blog.setLanguage(blogDTO.getLanguage());
         Set<BlogCategory> blogCategories = new HashSet<>();
         blogDTO.getBlogCategories().forEach(

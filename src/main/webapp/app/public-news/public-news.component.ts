@@ -5,8 +5,6 @@ import { ITEMS_PER_PAGE, Principal } from '../shared';
 import { ParseLinks, JhiLanguageService, AlertService } from 'ng-jhipster';
 import {News} from '../entities/news/news.model';
 import {PublicNewsService} from './public-news.service';
-import { TranslateService, LangChangeEvent } from 'ng2-translate/ng2-translate';
-import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'jhi-public-news',
@@ -28,14 +26,12 @@ export class PublicNewsComponent implements OnInit, OnDestroy {
     previousPage: any;
     predicate: any;
     reverse: any;
-    languageChangeSubscriber: Subscription;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
         private newsService: PublicNewsService,
         private parseLinks: ParseLinks,
         private alertService: AlertService,
-        private translateService: TranslateService,
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.page = 1;
@@ -45,8 +41,6 @@ export class PublicNewsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loadAll();
-
-        this.registerLanguageChange();
     }
 
     loadPage (page: number) {
@@ -54,12 +48,6 @@ export class PublicNewsComponent implements OnInit, OnDestroy {
             this.previousPage = page;
             this.loadAll();
         }
-    }
-
-    registerLanguageChange() {
-        this.languageChangeSubscriber = this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-            this.loadAll();
-        });
     }
 
     loadAll() {
@@ -73,7 +61,6 @@ export class PublicNewsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.languageChangeSubscriber.unsubscribe();
     }
 
     private onSuccess (data, headers) {
