@@ -7,7 +7,6 @@ import {
     BlogService,
     BlogPopupService,
     BlogComponent,
-    BlogDetailComponent,
     BlogDialogComponent,
     BlogPopupComponent,
     BlogDeletePopupComponent,
@@ -29,7 +28,6 @@ let ENTITY_STATES = [
     ],
     declarations: [
         BlogComponent,
-        BlogDetailComponent,
         BlogDialogComponent,
         BlogDeleteDialogComponent,
         BlogPopupComponent,

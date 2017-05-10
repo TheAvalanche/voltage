@@ -5,7 +5,6 @@ import { UserRouteAccessService } from '../../shared';
 import { PaginationUtil } from 'ng-jhipster';
 
 import { BlogComponent } from './blog.component';
-import { BlogDetailComponent } from './blog-detail.component';
 import { BlogPopupComponent } from './blog-dialog.component';
 import { BlogDeletePopupComponent } from './blog-delete-dialog.component';
 
@@ -34,14 +33,6 @@ export const blogRoute: Routes = [
     resolve: {
       'pagingParams': BlogResolvePagingParams
     },
-    data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'voltageApp.blog.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }, {
-    path: 'blog/:id',
-    component: BlogDetailComponent,
     data: {
         authorities: ['ROLE_USER'],
         pageTitle: 'voltageApp.blog.home.title'

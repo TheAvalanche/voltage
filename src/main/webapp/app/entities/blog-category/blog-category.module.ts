@@ -7,7 +7,6 @@ import {
     BlogCategoryService,
     BlogCategoryPopupService,
     BlogCategoryComponent,
-    BlogCategoryDetailComponent,
     BlogCategoryDialogComponent,
     BlogCategoryPopupComponent,
     BlogCategoryDeletePopupComponent,
@@ -29,7 +28,6 @@ let ENTITY_STATES = [
     ],
     declarations: [
         BlogCategoryComponent,
-        BlogCategoryDetailComponent,
         BlogCategoryDialogComponent,
         BlogCategoryDeleteDialogComponent,
         BlogCategoryPopupComponent,
