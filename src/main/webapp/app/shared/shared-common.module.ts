@@ -1,8 +1,8 @@
-import { NgModule, Sanitizer } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import {NgModule, Sanitizer} from '@angular/core';
+import {Title} from '@angular/platform-browser';
 
-import { TranslateService } from 'ng2-translate';
-import { AlertService } from 'ng-jhipster';
+import {TranslateService} from 'ng2-translate';
+import {AlertService} from 'ng-jhipster';
 
 
 import {
@@ -13,6 +13,7 @@ import {
     JhiAlertErrorComponent
 } from './';
 import {JhiTinyComponent} from './tinymce/tiny.component';
+import {SliceParagraphPipe} from './pipe/slice-paragraph.pipe';
 
 
 export function alertServiceProvider(sanitizer: Sanitizer, translateService: TranslateService) {
@@ -29,7 +30,8 @@ export function alertServiceProvider(sanitizer: Sanitizer, translateService: Tra
         FindLanguageFromKeyPipe,
         JhiAlertComponent,
         JhiAlertErrorComponent,
-        JhiTinyComponent
+        JhiTinyComponent,
+        SliceParagraphPipe
     ],
     providers: [
         JhiLanguageHelper,
@@ -45,7 +47,9 @@ export function alertServiceProvider(sanitizer: Sanitizer, translateService: Tra
         FindLanguageFromKeyPipe,
         JhiAlertComponent,
         JhiAlertErrorComponent,
-        JhiTinyComponent
+        JhiTinyComponent,
+        SliceParagraphPipe
     ]
 })
-export class VoltageSharedCommonModule {}
+export class VoltageSharedCommonModule {
+}

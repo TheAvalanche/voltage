@@ -1,15 +1,17 @@
 <div class="row">
     <div class="col-md-6 offset-md-2 col-sm-12 col-xs-12">
         <div class="blogs-section-content">
-            <article *ngFor="let blog of blogs ;trackBy: trackId" class="blog-article" [routerLink]="['/public-blog', blog.id ]">
+            <article *ngFor="let blog of blogs ;trackBy: trackId" class="blog-article">
                 <header class="blog-header">
-                    <a>{{blog.title}}</a>
+                    <a target="_blank" [routerLink]="['/public-blog', blog.id ]">{{blog.title}}</a>
                 </header>
                 <figure class="blog-figure">
-                    <a *ngIf="blog.imageUrl">
+                    <a target="_blank" [routerLink]="['/public-blog', blog.id ]" *ngIf="blog.imageUrl">
                         <img [src]="blog.imageUrl" alt="blog image"/>
                     </a>
                 </figure>
+                <p class="blog-short-content" [innerHTML]="blog.body | sliceParagraph"></p>
+                <p class="blog-read-more"><a target="_blank" [routerLink]="['/public-blog', blog.id ]">Read more...</a></p>
             </article>
             <div *ngIf="blogs && blogs.length">
                 <div class="row justify-content-center blogs-pagination">
