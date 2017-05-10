@@ -19,8 +19,8 @@
         </div>
     </div>
     <div class="col-md-2 col-sm-12 col-xs-12">
-        <div *ngFor="let blogCategory of blogCategories ;trackBy: trackId">
-            <a [routerLink]="['/public-blog/category/', blogCategory.id ]">{{blogCategory.title}}</a>
+        <div class="list-group blogs-section-categories">
+            <a *ngFor="let blogCategory of blogCategories ;trackBy: trackId" [routerLink]="['/public-blog/category/', blogCategory.id ]" routerLinkActive="active" class="list-group-item">{{blogCategory.title}}</a>
         </div>
     </div>
 </div>

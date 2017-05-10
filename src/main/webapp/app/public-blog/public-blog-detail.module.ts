@@ -3,22 +3,20 @@ import {RouterModule} from '@angular/router';
 
 import {VoltageSharedModule} from '../shared';
 
-import {PUBLIC_NEWS_DETAIL_ROUTE, PublicNewsDetailComponent} from './';
-import {VoltagePublicNewsModule} from './public-news.module';
+import {PUBLIC_BLOG_DETAIL_ROUTE, PublicBlogDetailComponent} from './';
 
 
 @NgModule({
     imports: [
         VoltageSharedModule,
-        VoltagePublicNewsModule,
-        RouterModule.forRoot([PUBLIC_NEWS_DETAIL_ROUTE], {useHash: true})
+        RouterModule.forRoot([PUBLIC_BLOG_DETAIL_ROUTE], {useHash: true})
     ],
     declarations: [
-        PublicNewsDetailComponent
+        PublicBlogDetailComponent
     ],
     entryComponents: [],
     providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class VoltagePublicNewsDetailModule {
+export class VoltagePublicBlogDetailModule {
 }

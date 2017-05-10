@@ -2,26 +2,26 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {JhiLanguageService} from 'ng-jhipster';
 
-import {News} from '../entities/news/news.model';
-import {PublicNewsService} from './public-news.service';
+import {Blog} from '../entities/blog/blog.model';
+import {PublicBlogService} from './public-blog.service';
 
 @Component({
-    selector: 'jhi-public-news-detail',
-    templateUrl: './public-news-detail.component.html',
+    selector: 'jhi-public-blog-detail',
+    templateUrl: './public-blog-detail.component.html',
     styleUrls: [
-        'public-news-detail.scss'
+        'public-blog-detail.scss'
     ]
 })
-export class PublicNewsDetailComponent implements OnInit, OnDestroy {
+export class PublicBlogDetailComponent implements OnInit, OnDestroy {
 
-    news: News;
+    blog: Blog;
     private subscription: any;
 
 
     constructor(private jhiLanguageService: JhiLanguageService,
-                private newsService: PublicNewsService,
+                private blogService: PublicBlogService,
                 private route: ActivatedRoute) {
-        this.jhiLanguageService.setLocations(['news', 'language']);
+        this.jhiLanguageService.setLocations(['blog', 'language']);
     }
 
     ngOnInit() {
@@ -31,8 +31,8 @@ export class PublicNewsDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.newsService.find(id).subscribe(news => {
-            this.news = news;
+        this.blogService.find(id).subscribe(blog => {
+            this.blog = blog;
         });
     }
 

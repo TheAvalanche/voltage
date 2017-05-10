@@ -26,19 +26,21 @@ import {
     ErrorComponent
 } from './layouts';
 import {VoltagePublicNewsModule} from './public-news/public-news.module';
+import {VoltagePublicBlogDetailModule} from './public-blog/public-blog-detail.module';
 
 
 @NgModule({
     imports: [
         BrowserModule,
         LayoutRoutingModule,
-        Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-'}),
+        Ng2Webstorage.forRoot({prefix: 'jhi', separator: '-'}),
         VoltageSharedModule,
         VoltageHomeModule,
         VoltageAdminModule,
         VoltageAccountModule,
         VoltageEntityModule,
         VoltagePublicBlogModule,
+        VoltagePublicBlogDetailModule,
         VoltagePublicNewsModule,
         VoltagePublicNewsDetailModule
     ],

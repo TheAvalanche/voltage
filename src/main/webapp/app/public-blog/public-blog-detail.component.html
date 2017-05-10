@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-md-8 offset-md-2 col-sm-12 col-xs-12">
+        <article *ngIf="blog" class="blog-detail-article">
+            <header class="blog-detail-header">
+                <a>{{blog.title}}</a>
+            </header>
+            <figure class="blog-detail-figure">
+                <a *ngIf="blog.imageUrl">
+                    <img [src]="blog.imageUrl" alt="blog image"/>
+                </a>
+            </figure>
+            <p class="blog-detail-content" [innerHTML]="blog.body"></p>
+            <p class="blog-detail-comment">
+                {{blog.created | date:'short'}}
+            </p>
+        </article>
+    </div>
+</div>
