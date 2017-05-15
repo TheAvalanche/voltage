@@ -7,8 +7,6 @@ import org.kartishev.voltage.domain.enumeration.Language;
 import org.kartishev.voltage.service.BlogService;
 import org.kartishev.voltage.service.dto.BlogDTO;
 import org.kartishev.voltage.web.rest.util.PaginationUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -26,9 +24,6 @@ import java.util.Optional;
 @RequestMapping("/public/api")
 public class PublicBlogResource {
 
-    private final Logger log = LoggerFactory.getLogger(PublicBlogResource.class);
-
-    private static final String ENTITY_NAME = "blog";
 
     private final BlogService blogService;
 
@@ -64,7 +59,7 @@ public class PublicBlogResource {
     @GetMapping("/blogs/{id}")
     @Timed
     public ResponseEntity<BlogDTO> getBlog(@PathVariable Long id) {
-        BlogDTO blogDTO = blogService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(blogDTO));
+        BlogDTO result = blogService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
     }
 }

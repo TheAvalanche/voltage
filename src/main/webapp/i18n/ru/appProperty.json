@@ -1,0 +1,27 @@
+{
+    "voltageApp": {
+        "appProperty" : {
+            "home": {
+                "title": "Свойства",
+                "createLabel": "Создать новое свойство",
+                "createOrEditLabel": "Создать или отредактировать свойство"
+            },
+            "created": "Новое свойство создано с идентификатором {{ param }}",
+            "updated": "Свойство обновлено с идентификатором {{ param }}",
+            "deleted": "Свойство удалено с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить свойство {{ id }}?"
+            },
+            "detail": {
+                "title": "Свойства"
+            },
+            "version": "Version",
+            "created": "Created",
+            "updated": "Updated",
+            "propertyType": "Property Type",
+            "name": "Name",
+            "value": "Value",
+            "language": "Language"
+        }
+    }
+}

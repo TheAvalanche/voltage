@@ -10,6 +10,8 @@
                 "news": "Ziņas",
                 "blog": "Blogs",
                 "blogCategory": "Kategorijas",
+                "appProperty": "App Properties",
+                "slide": "Slaidi",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

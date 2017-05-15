@@ -1,0 +1,27 @@
+{
+    "voltageApp": {
+        "slide" : {
+            "home": {
+                "title": "Slides",
+                "createLabel": "Создать новый слайд",
+                "createOrEditLabel": "Создать или отредактировать слайд"
+            },
+            "created": "Новый слайд создан с идентификатором {{ param }}",
+            "updated": "Слайд обновлен с идентификатором {{ param }}",
+            "deleted": "Слайд удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить слайд {{ id }}?"
+            },
+            "detail": {
+                "title": "Слайд"
+            },
+            "version": "Version",
+            "created": "Created",
+            "updated": "Updated",
+            "title": "Title",
+            "description": "Description",
+            "imageUrl": "Image Url",
+            "language": "Language"
+        }
+    }
+}

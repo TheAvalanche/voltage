@@ -1,0 +1,57 @@
+<div>
+    <br/>
+    <h2>
+        <span jhiTranslate="voltageApp.slide.home.title">Slides</span>
+        <button class="btn btn-primary float-right create-slide" [routerLink]="['/', { outlets: { popup: ['slide-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="voltageApp.slide.home.createLabel">
+            Create new Slide
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="slides">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="title"><span jhiTranslate="voltageApp.slide.title">Title</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="description"><span jhiTranslate="voltageApp.slide.description">Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="imageUrl"><span jhiTranslate="voltageApp.slide.imageUrl">Image Url</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="language"><span jhiTranslate="voltageApp.slide.language">Language</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let slide of slides ;trackBy: trackId">
+                <td><a [routerLink]="['../slide', slide.id ]">{{slide.id}}</a></td>
+                <td>{{slide.title}}</td>
+                <td>{{slide.description}}</td>
+                <td>{{slide.imageUrl}}</td>
+                <td jhiTranslate="{{'voltageApp.Language.' + slide.language}}">{{slide.language}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'slide/'+ slide.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'slide/'+ slide.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

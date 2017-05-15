@@ -5,8 +5,6 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.kartishev.voltage.domain.enumeration.Language;
 import org.kartishev.voltage.service.BlogCategoryService;
 import org.kartishev.voltage.service.dto.BlogCategoryDTO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +18,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/public/api")
 public class PublicBlogCategoryResource {
-
-    private final Logger log = LoggerFactory.getLogger(PublicBlogCategoryResource.class);
-
-    private static final String ENTITY_NAME = "blogCategory";
 
     private final BlogCategoryService blogCategoryService;
 
@@ -49,8 +43,8 @@ public class PublicBlogCategoryResource {
     @GetMapping("/blog-categories/{id}")
     @Timed
     public ResponseEntity<BlogCategoryDTO> getBlogCategory(@PathVariable Long id) {
-        BlogCategoryDTO blogCategoryDTO = blogCategoryService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(blogCategoryDTO));
+        BlogCategoryDTO result = blogCategoryService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
     }
 
 }

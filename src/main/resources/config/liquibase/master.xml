@@ -11,6 +11,8 @@
     <include file="classpath:config/liquibase/changelog/20170503101800_added_column_image_url_News.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170503175700_drop_column_image_News.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170507212400_added_column_image_url_Blog.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170513115506_added_entity_AppProperty.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170513120238_added_entity_Slide.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="classpath:config/liquibase/changelog/20170407060118_added_entity_constraints_Blog.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->

@@ -7,8 +7,6 @@ import org.kartishev.voltage.domain.enumeration.Language;
 import org.kartishev.voltage.service.NewsService;
 import org.kartishev.voltage.service.dto.NewsDTO;
 import org.kartishev.voltage.web.rest.util.PaginationUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -27,10 +25,6 @@ import java.util.Optional;
 @RequestMapping("/public/api")
 public class PublicNewsResource {
 
-    private final Logger log = LoggerFactory.getLogger(PublicNewsResource.class);
-
-    private static final String ENTITY_NAME = "news";
-
     private final NewsService newsService;
 
     public PublicNewsResource(NewsService newsService) {
@@ -48,8 +42,8 @@ public class PublicNewsResource {
     @GetMapping("/news/{id}")
     @Timed
     public ResponseEntity<NewsDTO> getNews(@PathVariable Long id) {
-        NewsDTO newsDTO = newsService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(newsDTO));
+        NewsDTO result = newsService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
     }
 
     @GetMapping("/news/lang/{lang}")

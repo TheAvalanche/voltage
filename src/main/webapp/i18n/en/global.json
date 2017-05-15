@@ -10,6 +10,8 @@
                 "news": "News",
                 "blog": "Blog",
                 "blogCategory": "Categories",
+                "appProperty": "App Property",
+                "slide": "Slide",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

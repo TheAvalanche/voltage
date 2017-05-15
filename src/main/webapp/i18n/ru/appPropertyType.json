@@ -1,0 +1,10 @@
+{
+    "voltageApp": {
+        "AppPropertyType" : {
+            "null": "",
+            "CONTACT": "CONTACT",
+            "SOCIAL": "SOCIAL",
+            "OTHER": "OTHER"
+        }
+    }
+}

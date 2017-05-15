@@ -2,9 +2,6 @@ package org.kartishev.voltage.domain.enumeration;
 
 import com.google.common.base.Preconditions;
 
-/**
- * The Language enumeration.
- */
 public enum Language {
     RUSSIAN("ru"), ENGLISH("en"), LATVIAN("lv");
 
