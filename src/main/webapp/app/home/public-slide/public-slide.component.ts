@@ -5,13 +5,13 @@ import {AlertService} from 'ng-jhipster';
 import {Response} from '@angular/http';
 
 @Component({
-    selector: 'jhi-cover',
-    templateUrl: './cover.component.html',
+    selector: 'jhi-public-slide',
+    templateUrl: './public-slide.component.html',
     styleUrls: [
-        'cover.scss'
+        'public-slide.scss'
     ]
 })
-export class CoverComponent implements OnInit {
+export class PublicSlideComponent implements OnInit {
     slides: Slide[];
 
 

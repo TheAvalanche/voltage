@@ -1,6 +1,6 @@
 <ngb-carousel>
-    <template *ngFor="let slide of slides ;trackBy: trackId" ngbSlide class="cover-slide">
-        <img [src]="slide.imageUrl" class="cover-img" alt="Random first slide">
+    <template *ngFor="let slide of slides ;trackBy: trackId" ngbSlide class="slide">
+        <img [src]="slide.imageUrl" class="slide-img" alt="Random first slide">
         <div class="carousel-caption">
             <h3>{{slide.title}}</h3>
             <p>{{slide.description}}</p>
