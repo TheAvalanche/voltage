@@ -27,14 +27,14 @@
         <div class="col-md-2 col-sm-6 col-xs-12">
             <div class="footer-col contact">
                 <label>Contact us:</label>
-                <ul>
-                    <li><i class="fa fa-phone" aria-hidden="true"></i> +371 2999 8888</li>
-                    <li><i class="fa fa-envelope" aria-hidden="true"></i> info@voltage.com</li>
+                <ul *ngIf="appPropertiesMap">
+                    <li><i class="fa fa-phone" aria-hidden="true"></i> {{appPropertiesMap.get('phone')}}</li>
+                    <li><i class="fa fa-envelope" aria-hidden="true"></i> {{appPropertiesMap.get('mail')}}</li>
                     <li><br></li>
                     <li>
-                        Rasas iela 9-99,<br>
-                        Rīga, LV-1063 <br>
-                        Latvia
+                        {{appPropertiesMap.get('address')}}<br>
+                        {{appPropertiesMap.get('city')}},  {{appPropertiesMap.get('zip')}} <br>
+                        {{appPropertiesMap.get('country')}}
                     </li>
                 </ul>
             </div>

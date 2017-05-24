@@ -19,6 +19,7 @@ import {
     SocialService,
     JhiLoginModalComponent
 } from './';
+import {PublicAppPropertyService} from './app-property/public-app-preperty.service';
 
 @NgModule({
     imports: [
@@ -42,7 +43,8 @@ import {
         SocialService,
         AuthService,
         UserService,
-        DatePipe
+        DatePipe,
+        PublicAppPropertyService
     ],
     entryComponents: [JhiLoginModalComponent],
     exports: [

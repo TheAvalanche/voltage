@@ -27,6 +27,7 @@ import {
 } from './layouts';
 import {VoltagePublicNewsModule} from './public-news/public-news.module';
 import {VoltagePublicBlogDetailModule} from './public-blog/public-blog-detail.module';
+import {PublicAppPropertyService} from './shared/app-property/public-app-preperty.service';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import {VoltagePublicBlogDetailModule} from './public-blog/public-blog-detail.mo
         ProfileService,
         customHttpProvider(),
         PaginationConfig,
-        UserRouteAccessService
+        UserRouteAccessService,
+        PublicAppPropertyService
     ],
     bootstrap: [JhiMainComponent]
 })
