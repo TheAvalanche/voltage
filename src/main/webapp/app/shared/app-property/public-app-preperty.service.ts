@@ -1,36 +1,32 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 import {JhiLanguageService} from 'ng-jhipster';
-import {AppProperty} from '../../entities/app-property/app-property.model';
-import {Response} from '@angular/http';
 
 @Injectable()
 export class PublicAppPropertyService {
 
-    private resourceLangUrl = 'public/api/app-properties/lang';
+    appPropertiesMap: Map<String, String> = new Map();
 
-    appProperties: AppProperty[];
+    private resourceLangUrl = 'public/api/app-properties/lang';
 
     constructor(private http: Http,
                 private languageService: JhiLanguageService) {
-        this.queryByCurrentLanguage().subscribe(
-            (res: Response) => {
-                this.appProperties = res.json();
-            },
-            (res: Response) => {
-            }
-        );
     }
 
-    queryByCurrentLanguage(): Observable<Response> {
-        return this.http.get(this.resourceLangUrl + '/' + this.languageService.currentLang)
-            .map((res: any) => this.convertResponse(res));
-    }
-
-    private convertResponse(res: any): any {
-        res._body = res.json();
-        return res;
+    load() {
+        return new Promise((resolve) => {
+            this.http.get(this.resourceLangUrl + '/' + this.languageService.currentLang).map(res => res.json())
+                .subscribe(
+                    properties => {
+                        for (let property of properties) {
+                            this.appPropertiesMap.set(property.name, property.value);
+                        }
+                        resolve();
+                    }
+                );
+        });
     }
 
 }

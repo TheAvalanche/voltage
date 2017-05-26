@@ -1,6 +1,6 @@
 import './vendor.ts';
 
-import {NgModule} from '@angular/core';
+import {NgModule, APP_INITIALIZER} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {Ng2Webstorage} from 'ng2-webstorage';
 
@@ -58,7 +58,12 @@ import {PublicAppPropertyService} from './shared/app-property/public-app-prepert
         customHttpProvider(),
         PaginationConfig,
         UserRouteAccessService,
-        PublicAppPropertyService
+        PublicAppPropertyService, {
+            provide: APP_INITIALIZER,
+            useFactory: (config: PublicAppPropertyService) => () => config.load(),
+            deps: [PublicAppPropertyService],
+            multi: true
+        }
     ],
     bootstrap: [JhiMainComponent]
 })

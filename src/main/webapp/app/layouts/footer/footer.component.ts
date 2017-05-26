@@ -10,23 +10,15 @@ import {Response} from '@angular/http';
         'footer.scss'
     ]
 })
-export class FooterComponent implements OnInit {
-    appProperties: AppProperty[];
+export class FooterComponent {
+
+    config: any;
+
     appPropertiesMap: Map<String, String>;
 
     constructor(private appPropertiesService: PublicAppPropertyService) {
-        this.appPropertiesMap = new Map();
+        this.appPropertiesMap = this.appPropertiesService.appPropertiesMap;
     }
 
 
-    ngOnInit(): void {
-        this.appPropertiesService.queryByCurrentLanguage().subscribe(
-            (res: Response) => {
-                this.appProperties = res.json();
-                for (let property of this.appProperties) {
-                    this.appPropertiesMap.set(property.name, property.value);
-                }
-            }
-        );
-    }
 }
