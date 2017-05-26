@@ -27,7 +27,7 @@ import {
 } from './layouts';
 import {VoltagePublicNewsModule} from './public-news/public-news.module';
 import {VoltagePublicBlogDetailModule} from './public-blog/public-blog-detail.module';
-import {PublicAppPropertyService} from './shared/app-property/public-app-preperty.service';
+import {PublicAppPropertyLoader, PublicAppPropertyService} from './shared/app-property/public-app-preperty.service';
 
 
 @NgModule({
@@ -60,7 +60,7 @@ import {PublicAppPropertyService} from './shared/app-property/public-app-prepert
         UserRouteAccessService,
         PublicAppPropertyService, {
             provide: APP_INITIALIZER,
-            useFactory: (config: PublicAppPropertyService) => () => config.load(),
+            useFactory: PublicAppPropertyLoader,
             deps: [PublicAppPropertyService],
             multi: true
         }

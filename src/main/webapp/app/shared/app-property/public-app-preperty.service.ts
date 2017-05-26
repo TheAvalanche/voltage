@@ -30,3 +30,7 @@ export class PublicAppPropertyService {
     }
 
 }
+
+export function PublicAppPropertyLoader(publicAppPropertyService: PublicAppPropertyService) {
+    return () => publicAppPropertyService.load();
+}
