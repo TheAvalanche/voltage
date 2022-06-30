@@ -1,4 +1,7 @@
 # Voltage
+
+Studio Management System. Created to play with JHipster techonolgy stack.
+
 This application was generated using JHipster 4.2.0, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v4.2.0](https://jhipster.github.io/documentation-archive/v4.2.0).
 
 ## Development
